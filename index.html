@@ -35,12 +35,14 @@
         .user-status:hover { transform: scale(1.05); }
         .profile-img-container { position: relative; }
         .profile-img-container img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; background: #f9f9f9; }
-        .mood-badge { position: absolute; bottom: -3px; right: -5px; background: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); border: 1px solid #ffe4e1; z-index: 5; }
+        .mood-badge { position: absolute; bottom: -3px; right: -5px; background: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 1px solid #ffe4e1; z-index: 5; transition: 0.2s; }
         .user-status span { font-weight: 700; font-size: 14px; color: var(--text); max-width: 80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .heart-divider { color: var(--primary-light); font-size: 20px; animation: heartbeat 1.5s infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        /* ระบบกรอบแรงค์ต่างๆ */
+        .mood-btn { background: #fff0f5; border: 2px solid #ffe4e1; font-size: 24px; padding: 10px; border-radius: 15px; cursor: pointer; transition: 0.2s; touch-action: manipulation; }
+        .mood-btn:hover { transform: scale(1.1); background: var(--primary-light); border-color: var(--primary); }
+
         .rank-Iron { border: 3px solid #8e959e !important; box-shadow: 0 0 5px #8e959e; }
         .rank-Bronze { border: 3px solid #cd7f32 !important; box-shadow: 0 0 8px #cd7f32; }
         .rank-Silver { border: 3px solid #c0c0c0 !important; box-shadow: 0 0 10px #c0c0c0; }
@@ -51,28 +53,36 @@
         .rank-Grandmaster { border: 3px solid #ff4500 !important; box-shadow: 0 0 22px #ff4500; }
         .rank-Challenger { border: 3px solid #1e90ff !important; box-shadow: 0 0 25px #1e90ff; animation: pulse-chal 2s infinite; }
         .rank-Radiant { border: 4px solid #ffdf00 !important; box-shadow: 0 0 30px #ffdf00; animation: pulse-rad 1.5s infinite; }
-        @keyframes pulse-chal { 0%, 100% { box-shadow: 0 0 15px #1e90ff; } 50% { box-shadow: 0 0 30px #1e90ff; } }
-        @keyframes pulse-rad { 0%, 100% { box-shadow: 0 0 20px #ffdf00; border-color: #ffdf00; } 50% { box-shadow: 0 0 40px #ffae42; border-color: #ffae42; } }
 
-        .menu-bar { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; background: white; padding: 15px; border-radius: 30px; box-shadow: 0 8px 25px rgba(255, 117, 140, 0.15); margin-bottom: 30px; }
-        .menu-btn { background-color: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 8px 12px; border-radius: 25px; font-family: 'Mali', cursive; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.3s; touch-action: manipulation; }
+        .menu-bar { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; background: white; padding: 12px; border-radius: 30px; box-shadow: 0 8px 25px rgba(255, 117, 140, 0.15); margin-bottom: 30px; }
+        .menu-btn { background-color: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 8px 10px; border-radius: 20px; font-family: 'Mali', cursive; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.3s; touch-action: manipulation; flex: 1 1 auto; text-align: center; }
         .menu-btn.active, .menu-btn:hover { background-color: var(--primary); color: white; transform: translateY(-2px); }
         
         .tab-section { display: none; }
         .tab-section.active { display: block; animation: fadeIn 0.4s; }
         .add-form-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; border: 2px dashed #ffe4e1; text-align: center; }
         .add-form-card input, .add-form-card select { width: 100%; padding: 12px; border: 2px solid var(--primary-light); border-radius: 15px; font-family: 'Mali', cursive; margin-bottom: 15px; font-size: 14px; outline: none; }
-        .add-form-card input:focus, .add-form-card select:focus { border-color: var(--primary); }
         
         .polaroid-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
-        .polaroid { background: white; padding: 15px 15px 15px 15px; border-radius: 5px; box-shadow: 0 6px 15px rgba(0,0,0,0.08); text-align: center; position: relative; transition: 0.3s; }
-        .polaroid:hover { transform: scale(1.03); z-index: 10; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        .polaroid { background: white; padding: 15px; border-radius: 5px; box-shadow: 0 6px 15px rgba(0,0,0,0.08); text-align: center; position: relative; transition: 0.3s; }
         .polaroid img.main-img { width: 100%; height: 240px; object-fit: cover; border: 1px solid #eee; border-radius: 3px; }
         .polaroid p { margin: 15px 0 0 0; font-weight: 600; font-size: 15px; color: var(--text); }
         .uploader-badge { position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.95); padding: 4px 10px 4px 4px; border-radius: 20px; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 11px; font-weight: 700; color: var(--primary); z-index: 5; }
         .uploader-badge img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; border: none !important; box-shadow: none !important; }
-        
-        .reaction-bar { display: flex; justify-content: space-around; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #eee; align-items: center; }
+
+        /* ระบบ Reactions สไตล์ Facebook */
+        .reaction-bar { display: flex; justify-content: space-between; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #eee; align-items: center; position: relative; }
+        .fb-react-container { position: relative; display: flex; align-items: center; }
+        .fb-react-btn { font-size: 14px; font-weight: 700; color: #888; cursor: pointer; display: flex; align-items: center; gap: 5px; user-select: none; padding: 5px; border-radius: 10px; transition: 0.2s; }
+        .fb-react-btn:hover { background: #fff0f5; }
+        .fb-react-box { display: none; position: absolute; bottom: 35px; left: -10px; background: white; border-radius: 30px; padding: 8px 12px; gap: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); border: 1px solid #ffe4e1; z-index: 100; animation: fadeIn 0.2s; }
+        .fb-react-box.show { display: flex; }
+        .react-emoji { font-size: 24px; cursor: pointer; transition: transform 0.1s; }
+        .react-emoji:hover { transform: scale(1.3); }
+
+        .like-pic-frame { position: relative; display: inline-block; background: #fff; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.15); border: 2px solid #fff; }
+        .like-pic-frame img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; display: block; }
+        .react-badge-mini { position: absolute; bottom: -4px; right: -6px; font-size: 11px; background: white; border-radius: 50%; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
 
         .music-card { background: white; padding: 15px 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-left: 5px solid var(--primary); position: relative; }
         
@@ -83,12 +93,10 @@
         .chat-bubble { background: white; padding: 10px 15px; border-radius: 20px; max-width: 75%; font-size: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); word-break: break-word; }
         .chat-msg.me .chat-bubble { background: var(--primary); color: white; border-bottom-right-radius: 5px; }
         .chat-msg.other .chat-bubble { background: white; color: var(--text); border-bottom-left-radius: 5px; }
-        .chat-sender { font-size: 11px; color: #888; margin-bottom: 3px; text-align: left; }
-        .chat-msg.me .chat-sender { text-align: right; color: var(--primary-light); }
         
         .profile-preview { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-light); margin-bottom: 15px; }
 
-        @media (max-width: 480px) { .menu-bar { padding: 10px; gap: 5px; } .menu-btn { font-size: 11px; padding: 8px 10px; flex: 1 1 auto; text-align: center; } .polaroid-grid { grid-template-columns: 1fr; } .polaroid img.main-img { height: 280px; } .header-profiles { gap: 8px; padding: 10px 15px; } .user-status span { font-size: 12px; max-width: 60px; } .chat-container { height: 350px; } }
+        @media (max-width: 480px) { .menu-btn { font-size: 11px; padding: 6px 8px; } .polaroid-grid { grid-template-columns: 1fr; } .polaroid img.main-img { height: 280px; } .header-profiles { gap: 8px; padding: 10px 15px; } .user-status span { font-size: 12px; max-width: 60px; } .chat-container { height: 350px; } }
     </style>
 </head>
 <body>
@@ -97,7 +105,6 @@
         <div class="login-box">
             <h2>รหัสผ่าน</h2>
             <input type="password" id="passcode" placeholder="ใส่รหัส 8 หลัก" maxlength="8" inputmode="numeric" oninput="checkAutoLogin()">
-            
             <div class="pin-pad">
                 <button class="pin-btn" onclick="addPin('1')">1</button>
                 <button class="pin-btn" onclick="addPin('2')">2</button>
@@ -112,9 +119,24 @@
                 <button class="pin-btn" onclick="addPin('0')">0</button>
                 <button class="pin-btn submit-btn" onclick="checkPassword()">ok</button>
             </div>
-            
             <p id="error-msg" style="color: #ff4757; display: none; margin-top: 10px; font-weight:600; font-size: 14px;">รหัสไม่ถูกต้องนะค๊าบ!</p>
             <p id="loading-msg" style="color: var(--primary); display: none; margin-top: 10px; font-weight:600; font-size: 14px;">กำลังซิงค์ข้อมูล... ⏳</p>
+        </div>
+    </div>
+
+    <div id="mood-selector-popup" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); z-index:2000; align-items:center; justify-content:center; backdrop-filter: blur(3px);">
+        <div style="background:white; padding:20px; border-radius:20px; text-align:center; width:80%; max-width:300px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: fadeIn 0.3s;">
+            <h3 style="color:var(--primary); margin-top:0; margin-bottom:15px;">อารมณ์ตอนนี้ 💖</h3>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+                <button class="mood-btn" onclick="quickUpdateMood('😊')">😊</button>
+                <button class="mood-btn" onclick="quickUpdateMood('🥰')">🥰</button>
+                <button class="mood-btn" onclick="quickUpdateMood('🥺')">🥺</button>
+                <button class="mood-btn" onclick="quickUpdateMood('😭')">😭</button>
+                <button class="mood-btn" onclick="quickUpdateMood('😡')">😡</button>
+                <button class="mood-btn" onclick="quickUpdateMood('😴')">😴</button>
+                <button class="mood-btn" onclick="quickUpdateMood('🤒')">🤒</button>
+            </div>
+            <button class="btn-main" style="margin-top:20px; background:#eee; color:#888; box-shadow:none;" onclick="document.getElementById('mood-selector-popup').style.display='none'">ปิด</button>
         </div>
     </div>
 
@@ -124,15 +146,15 @@
         <div class="menu-bar">
             <button class="menu-btn active" id="btn-memories" onclick="switchTab('memories')">📝 ไดอารี่</button>
             <button class="menu-btn" id="btn-chat" onclick="switchTab('chat'); loadData();">💬 แชท</button>
+            <button class="menu-btn" id="btn-appointments" onclick="switchTab('appointments')">🗓️ นัดหมาย</button>
             <button class="menu-btn" id="btn-music" onclick="switchTab('music')">🎵 เพลง</button>
-            <!-- เพิ่มปุ่มเมนูแรงค์ -->
             <button class="menu-btn" id="btn-rank" onclick="switchTab('rank')">🏆 แรงค์</button>
             <button class="menu-btn" id="btn-profile" onclick="switchTab('profile')">👤 โปรไฟล์</button>
         </div>
 
         <div id="tab-memories" class="tab-section active">
             <div class="add-form-card">
-                <h3 style="margin-top:0; color:var(--primary);">เพิ่มความทรงจำใหม่</h3>
+                <h3 style="margin-top:0; color:var(--primary);">เพิ่มรูปภาพ</h3>
                 <input type="file" id="memo-file" accept="image/*">
                 <input type="text" id="memo-text" placeholder="เขียนบรรยายใต้ภาพ...">
                 <button class="btn-main" style="width:auto;" onclick="uploadWithFile('Memories', 'memo-file', 'memo-text')">บันทึกลงไดอารี่</button>
@@ -148,6 +170,25 @@
             </div>
         </div>
 
+        <div id="tab-appointments" class="tab-section">
+            <div class="add-form-card">
+                <h3 style="margin-top:0; color:var(--primary);">เพิ่มนัดหมายเดทของเรา 🗓️</h3>
+                <div style="display:flex; gap:10px; margin-bottom:15px;">
+                    <div style="flex:1; text-align:left;">
+                        <label style="font-size:13px; font-weight:bold; color:var(--text); margin-left:5px;">วันที่:</label>
+                        <input type="date" id="appt-date" required style="margin-bottom:0; margin-top:5px;">
+                    </div>
+                    <div style="flex:1; text-align:left;">
+                        <label style="font-size:13px; font-weight:bold; color:var(--text); margin-left:5px;">เวลา:</label>
+                        <input type="time" id="appt-time" required style="margin-bottom:0; margin-top:5px;">
+                    </div>
+                </div>
+                <input type="text" id="appt-text" placeholder="จะไปทำอะไร..." required>
+                <button class="btn-main" style="width:auto;" onclick="addAppointment(event)">บันทึกนัดหมาย</button>
+            </div>
+            <div id="appointments-container" style="display: flex; flex-direction: column; gap: 15px;"></div>
+        </div>
+
         <div id="tab-music" class="tab-section">
             <div class="add-form-card">
                 <h3 style="margin-top:0; color:var(--primary);">บันทึกเพลงใหม่</h3>
@@ -158,34 +199,19 @@
             <div id="music-container" style="display: flex; flex-direction: column; gap: 10px;"></div>
         </div>
 
-        <!-- แท็บแสดงระบบแรงค์ -->
         <div id="tab-rank" class="tab-section">
             <div class="add-form-card">
                 <h3 style="margin-top:0; color:var(--primary);">🏆 กระดานแต้มแรงค์</h3>
                 <div id="rank-display-board" style="display:flex; flex-direction:column; gap:15px; margin-bottom: 20px;"></div>
-                
                 <div style="background:#fff0f5; padding:15px; border-radius:15px; text-align:left; font-size:14px; color:var(--text);">
                     <strong style="color:#ff4757;">📜 กติกาการไต่แรงค์:</strong>
                     <ul style="margin-top:8px; padding-left:20px; line-height:1.6; margin-bottom:0;">
-                        <li>ลงรูปไดอารี่ หรือ ลงเพลง รับ <b>+1 แต้ม</b></li>
+                        <li>ลงรูปไดอารี่ รับ <b>+2 แต้ม</b></li>
+                        <li>ลงเพลง รับ <b>+1 แต้ม</b></li>
+                        <li>ติ๊กสำเร็จนัดหมาย (ต้องติ๊ก 2 คน) รับ <b>+10 แต้ม</b></li>
                         <li>ถ้า <b>ไม่ลงอะไรเลย 1 วัน</b> หัก <b>-5 แต้ม</b></li>
                         <li>ถ้าอยู่แรงค์สูงสุด (Radiant) ไม่ลง 1 วัน หัก <b>-10 แต้ม!</b></li>
-                        <li><span style="font-size: 12px; color:#888;">* แชทกับอัปเดตโปรไฟล์ ไม่นับแต้มนะจ๊ะ</span></li>
                     </ul>
-                </div>
-                
-                <h4 style="margin-top:20px; color:var(--primary); margin-bottom:10px;">ลำดับแรงค์ทั้งหมด</h4>
-                <div style="font-size:13px; display:grid; grid-template-columns: 1fr 1fr; gap:10px; text-align:left; font-weight:600;">
-                    <div style="color:#8e959e;">🪨 Iron (0-9)</div>
-                    <div style="color:#cd7f32;">🥉 Bronze (10-19)</div>
-                    <div style="color:#a9a9a9;">🥈 Silver (20-29)</div>
-                    <div style="color:#ffd700;">🥇 Gold (30-39)</div>
-                    <div style="color:#48d1cc;">💠 Platinum (40-49)</div>
-                    <div style="color:#00bfff;">💎 Diamond (50-59)</div>
-                    <div style="color:#da70d6;">🔮 Master (60-69)</div>
-                    <div style="color:#ff4500;">👹 Grandmaster (70-79)</div>
-                    <div style="color:#1e90ff;">⚡ Challenger (80-89)</div>
-                    <div style="grid-column: 1 / -1; color:#ffdf00; font-weight:bold; text-align:center; font-size: 15px; margin-top: 5px;">🌟 Radiant (90+)</div>
                 </div>
             </div>
         </div>
@@ -194,13 +220,11 @@
             <div class="add-form-card" style="display: flex; flex-direction: column; align-items: center;">
                 <h3 style="margin-top:0; color:var(--primary);">ตั้งค่าโปรไฟล์ของคุณ</h3>
                 <div class="profile-img-container" style="margin-bottom: 15px;">
-                    <img id="preview-profile-pic" class="profile-preview" src="" alt="profile" referrerpolicy="no-referrer" style="margin-bottom: 0; border: 4px solid var(--primary-light);">
+                    <img id="preview-profile-pic" class="profile-preview" src="" alt="profile" referrerpolicy="no-referrer" style="margin-bottom: 0;">
                     <div id="preview-mood" class="mood-badge" style="width:30px; height:30px; font-size:18px; bottom: 5px; right: 5px;">😊</div>
                 </div>
-                
                 <label style="font-weight:600; width:100%; text-align:left; max-width:300px;">ชื่อที่แสดง:</label>
                 <input type="text" id="profile-name-input" placeholder="ใส่ชื่อของคุณ" style="max-width:300px;">
-                
                 <label style="font-weight:600; width:100%; text-align:left; max-width:300px;">อารมณ์ตอนนี้:</label>
                 <select id="profile-mood-input" style="max-width:300px;" onchange="document.getElementById('preview-mood').innerText = this.value">
                     <option value="😊">😊 อารมณ์ดี / มีความสุข</option>
@@ -211,10 +235,8 @@
                     <option value="😴">😴 ง่วง / เหนื่อย</option>
                     <option value="🤒">🤒 ป่วย / ไม่สบาย</option>
                 </select>
-
                 <label style="font-weight:600; width:100%; text-align:left; max-width:300px; margin-top:5px;">เปลี่ยนรูปภาพ:</label>
                 <input type="file" id="profile-file-input" accept="image/*" style="max-width:300px;">
-                
                 <button id="btn-save-prof" class="btn-main" style="width:auto; margin-top:10px;" onclick="saveProfile()">บันทึกอัปเดต</button>
             </div>
         </div>
@@ -222,15 +244,12 @@
 
     <script>
         const scriptUrl = 'https://script.google.com/macros/s/AKfycbzEYhM0r_B1RPLojZkJyFbOY-GZxsJgYsbcfEERUrsix8WHYH0WprpirFiYIpmIqE4WZQ/exec'
-        
         let currentUserRole = '';
-        
         let profiles = {
             'boy': { name: 'เค้าเอง (ชาย)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png', mood: '😊', points: 0 },
             'girl': { name: 'เค้าเอง (หญิง)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140047.png', mood: '🥰', points: 0 }
         };
 
-        // ระบบคำนวณแรงค์
         function getRankInfo(pts) {
             if(pts < 10) return { name: 'Iron', cls: 'rank-Iron', max: 10 };
             if(pts < 20) return { name: 'Bronze', cls: 'rank-Bronze', max: 20 };
@@ -248,29 +267,20 @@
             const input = document.getElementById('passcode');
             if(input.value.length === 8) checkPassword();
         }
-
         function addPin(num) {
             const input = document.getElementById('passcode');
-            if(input.value.length < 8) {
-                input.value += num;
-                checkAutoLogin();
-            }
+            if(input.value.length < 8) { input.value += num; checkAutoLogin(); }
         }
-
         function clearPin() {
             const input = document.getElementById('passcode');
             input.value = input.value.slice(0, -1);
             document.getElementById('error-msg').style.display = 'none';
         }
-
         function checkPassword() {
             const pass = document.getElementById('passcode').value;
             if (pass === '01022547') { currentUserRole = 'boy'; loginSuccess(); } 
             else if (pass === '09092546') { currentUserRole = 'girl'; loginSuccess(); } 
-            else { 
-                document.getElementById('error-msg').style.display = 'block'; 
-                document.getElementById('passcode').value = ''; 
-            }
+            else { document.getElementById('error-msg').style.display = 'block'; document.getElementById('passcode').value = ''; }
         }
 
         async function loginSuccess() {
@@ -278,81 +288,70 @@
             document.getElementById('loading-msg').style.display = 'block';
             document.querySelector('.pin-pad').style.pointerEvents = 'none';
             document.querySelector('.pin-pad').style.opacity = '0.5';
-
-            try {
-                let res = await fetch(scriptUrl + '?type=Profiles');
-                let data = await res.json();
-                data.forEach(row => {
-                    let role = row[0];
-                    if(profiles[role]) {
-                        profiles[role].name = row[1] || profiles[role].name;
-                        profiles[role].pic = row[2] || profiles[role].pic;
-                        profiles[role].mood = row[3] || profiles[role].mood;
-                        profiles[role].points = parseInt(row[4]) || 0;
-                    }
-                });
-            } catch(e) { console.log('ใช้โปรไฟล์เริ่มต้น'); }
+            
+            // โหลดข้อมูลให้เสร็จก่อนเข้าหน้าเว็บ
+            await loadData();
 
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
-            
-            updateHeaderUI();
-            updateProfileTabUI();
-            loadData();
+            startCountdownTimer(); 
+        }
+
+        function openMoodSelector() { document.getElementById('mood-selector-popup').style.display = 'flex'; }
+        
+        async function quickUpdateMood(newMood) {
+            document.getElementById('mood-selector-popup').style.display = 'none';
+            profiles[currentUserRole].mood = newMood;
+            updateHeaderUI(); updateProfileTabUI();
+            const payload = { type: "ProfileUpload", role: currentUserRole, uploaderName: profiles[currentUserRole].name, mood: newMood, fileData: null, fileName: null, mimeType: null };
+            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); } catch(e){}
         }
 
         function updateHeaderUI() {
-            const boy = profiles['boy'];
-            const girl = profiles['girl'];
-            
-            let bRank = getRankInfo(boy.points);
-            let gRank = getRankInfo(girl.points);
-            
+            const boy = profiles['boy']; const girl = profiles['girl'];
+            let bRank = getRankInfo(boy.points); let gRank = getRankInfo(girl.points);
+            let bMoodStyle = currentUserRole === 'boy' ? `cursor:pointer; box-shadow: 0 0 8px var(--primary); transform: scale(1.1);` : `box-shadow: 0 2px 5px rgba(0,0,0,0.15);`;
+            let gMoodStyle = currentUserRole === 'girl' ? `cursor:pointer; box-shadow: 0 0 8px var(--primary); transform: scale(1.1);` : `box-shadow: 0 2px 5px rgba(0,0,0,0.15);`;
+            let bMoodClick = currentUserRole === 'boy' ? `onclick="event.stopPropagation(); openMoodSelector()"` : '';
+            let gMoodClick = currentUserRole === 'girl' ? `onclick="event.stopPropagation(); openMoodSelector()"` : '';
             document.getElementById('header-profiles').innerHTML = `
-                <div class="user-status" onclick="switchTab('rank')" title="คลิกดูแรงค์">
+                <div class="user-status" onclick="switchTab('rank')">
                     <div class="profile-img-container">
                         <img src="${boy.pic}" class="${bRank.cls}" alt="boy" referrerpolicy="no-referrer">
-                        <div class="mood-badge">${boy.mood}</div>
+                        <div class="mood-badge" style="${bMoodStyle}" ${bMoodClick}>${boy.mood}</div>
                     </div>
                     <div style="display:flex; flex-direction:column; align-items:flex-start;">
-                        <span>${boy.name}</span>
-                        <span style="font-size:10px; color:#888;">${bRank.name} (${boy.points})</span>
+                        <span>${boy.name}</span><span style="font-size:10px; color:#888;">${bRank.name} (${boy.points})</span>
                     </div>
                 </div>
                 <div class="heart-divider">💓</div>
-                <div class="user-status" onclick="switchTab('rank')" title="คลิกดูแรงค์">
+                <div class="user-status" onclick="switchTab('rank')">
                     <div style="display:flex; flex-direction:column; align-items:flex-end;">
-                        <span>${girl.name}</span>
-                        <span style="font-size:10px; color:#888;">${gRank.name} (${girl.points})</span>
+                        <span>${girl.name}</span><span style="font-size:10px; color:#888;">${gRank.name} (${girl.points})</span>
                     </div>
                     <div class="profile-img-container">
                         <img src="${girl.pic}" class="${gRank.cls}" alt="girl" referrerpolicy="no-referrer">
-                        <div class="mood-badge">${girl.mood}</div>
+                        <div class="mood-badge" style="${gMoodStyle}" ${gMoodClick}>${girl.mood}</div>
                     </div>
-                </div>
-            `;
+                </div>`;
             renderRankBoard();
         }
 
         function renderRankBoard() {
-            const board = document.getElementById('rank-display-board');
-            let html = '';
+            const board = document.getElementById('rank-display-board'); let html = '';
             ['boy', 'girl'].forEach(role => {
-                let p = profiles[role];
-                let rank = getRankInfo(p.points);
+                let p = profiles[role]; let rank = getRankInfo(p.points);
                 let progress = rank.max === 'MAX' ? 100 : ((p.points % 10) / 10) * 100; 
-                
                 html += `
                 <div style="display:flex; align-items:center; gap:15px; background:white; padding:15px; border-radius:15px; border: 1px solid #eee;">
                     <img src="${p.pic}" class="${rank.cls}" style="width:55px; height:55px; border-radius:50%; object-fit:cover;" referrerpolicy="no-referrer">
                     <div style="flex:1; text-align:left;">
                         <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                            <strong style="color:var(--text); font-size:14px;">${p.name}</strong>
-                            <strong style="color:var(--primary); font-size:14px;">${p.points} แต้ม</strong>
+                            <strong style="color:var(--text); font-size:14px;">${p.name}</strong><strong style="color:var(--primary); font-size:14px;">${p.points} แต้ม</strong>
                         </div>
-                        <div style="font-size:12px; color:#888; margin-bottom:6px;">Rank: <b style="color:var(--text);">${rank.name}</b></div>
+                        <div style="font-size:12px; color:#888; margin-bottom:6px;">Rank: <b>${rank.name}</b></div>
                         <div style="background:#f0f0f0; height:8px; border-radius:4px; width:100%; overflow:hidden;">
-                            <div style="background:var(--primary); height:100%; width:${progress}%; border-radius:4px;"></div>
+                            <div style="background:var(--primary); height:100%; width:${progress}%;"></div>
                         </div>
                     </div>
                 </div>`;
@@ -372,47 +371,17 @@
             const newMood = document.getElementById('profile-mood-input').value;
             const fileInput = document.getElementById('profile-file-input');
             const btnSave = document.getElementById('btn-save-prof');
-            
             if(!newName) return alert('อย่าลืมใส่ชื่อด้วยนะค๊าบ!');
-            
-            btnSave.innerText = "กำลังบันทึก... ⏳";
-            btnSave.disabled = true;
-
-            let base64Data = null;
-            let file = null;
-            if (fileInput.files.length > 0) {
-                file = fileInput.files[0];
-                base64Data = await toBase64(file);
-            }
-            
-            const payload = { 
-                type: "ProfileUpload", 
-                role: currentUserRole,
-                uploaderName: newName,
-                mood: newMood,
-                fileData: base64Data ? base64Data.split(',')[1] : null, 
-                fileName: file ? file.name : null, 
-                mimeType: file ? file.type : null 
-            };
-            
+            btnSave.innerText = "กำลังบันทึก... ⏳"; btnSave.disabled = true;
+            let base64Data = null; let file = null;
+            if (fileInput.files.length > 0) { file = fileInput.files[0]; base64Data = await toBase64(file); }
+            const payload = { type: "ProfileUpload", role: currentUserRole, uploaderName: newName, mood: newMood, fileData: base64Data ? base64Data.split(',')[1] : null, fileName: file ? file.name : null, mimeType: file ? file.type : null };
             try {
-                const response = await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
-                const result = await response.json();
-                
-                profiles[currentUserRole].name = newName;
-                profiles[currentUserRole].mood = newMood;
-                if(result.link) profiles[currentUserRole].pic = result.link;
-                
-                updateHeaderUI();
-                updateProfileTabUI();
-                alert('อัปเดตโปรไฟล์เรียบร้อยแล้ว! 💖');
-                fileInput.value = '';
-                loadData(); 
-            } catch(e) {
-                alert('เกิดข้อผิดพลาดในการเชื่อมต่อครับ');
-            }
-            btnSave.innerText = "บันทึกอัปเดต";
-            btnSave.disabled = false;
+                await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
+                profiles[currentUserRole].name = newName; profiles[currentUserRole].mood = newMood;
+                updateHeaderUI(); updateProfileTabUI(); alert('อัปเดตโปรไฟล์เรียบร้อยแล้ว! 💖'); fileInput.value = ''; loadData(); 
+            } catch(e) { alert('เกิดข้อผิดพลาดในการเชื่อมต่อครับ'); }
+            btnSave.innerText = "บันทึกอัปเดต"; btnSave.disabled = false;
         }
 
         function switchTab(tabName) {
@@ -420,27 +389,21 @@
             document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('tab-' + tabName).classList.add('active');
             document.getElementById('btn-' + tabName).classList.add('active');
-            
-            if(tabName === 'chat') {
-                forceScrollChat();
-            }
+            if(tabName === 'chat') forceScrollChat();
         }
-
+        
         function forceScrollChat() {
             const chatContainer = document.getElementById('chat-container');
             if(chatContainer) {
                 chatContainer.scrollTop = chatContainer.scrollHeight;
                 setTimeout(() => { chatContainer.scrollTop = chatContainer.scrollHeight; }, 50);
-                setTimeout(() => { chatContainer.scrollTop = chatContainer.scrollHeight; }, 200);
             }
         }
-
+        
         function toBase64(file) {
             return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
+                const reader = new FileReader(); reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
             });
         }
 
@@ -448,89 +411,88 @@
             const fileInput = document.getElementById(fileId);
             const text = textId ? document.getElementById(textId).value : '';
             if (fileInput.files.length === 0) return alert('กรุณาเลือกรูปภาพก่อนครับ!');
-            
             alert('กำลังอัปโหลดและอัปเดตคะแนนแรงค์... ⏳');
-            const file = fileInput.files[0];
-            const base64Data = await toBase64(file);
-            
+            const file = fileInput.files[0]; const base64Data = await toBase64(file);
             const payload = { type: type, text: text, fileData: base64Data.split(',')[1], fileName: file.name, mimeType: file.type, uploaderName: profiles[currentUserRole].name, uploaderPic: profiles[currentUserRole].pic, role: currentUserRole };
-            
             try {
                 const response = await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
-                const result = await response.json();
-                if (result.status === "success") {
-                    fileInput.value = '';
-                    if(textId) document.getElementById(textId).value = '';
-                    // เพิ่มแต้มในจอฝั่งเราโชว์ทันที
-                    profiles[currentUserRole].points += 1;
-                    updateHeaderUI();
-                    loadData();
-                } else alert('❌ ผิดพลาด: ' + result.message);
+                if ((await response.json()).status === "success") { fileInput.value = ''; if(textId) document.getElementById(textId).value = ''; profiles[currentUserRole].points += 2; updateHeaderUI(); loadData(); }
             } catch (error) { alert('❌ เชื่อมต่อไม่ได้: ' + error); }
         }
 
         async function uploadText(type, linkId, textId) {
-            const link = document.getElementById(linkId).value;
-            const text = document.getElementById(textId).value;
+            const link = document.getElementById(linkId).value; const text = document.getElementById(textId).value;
             if (!link) return alert('อย่าลืมวางลิ้งก์เพลงนะค๊าบ!');
-            
             const payload = { type: type, link: link, text: text, uploaderName: profiles[currentUserRole].name, uploaderPic: profiles[currentUserRole].pic, role: currentUserRole };
-            try {
-                await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
-                document.getElementById(linkId).value = '';
-                document.getElementById(textId).value = '';
-                profiles[currentUserRole].points += 1;
-                updateHeaderUI();
-                loadData();
-            } catch (error) { alert('❌ เชื่อมต่อไม่ได้: ' + error); }
+            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); document.getElementById(linkId).value = ''; document.getElementById(textId).value = ''; profiles[currentUserRole].points += 1; updateHeaderUI(); loadData(); } catch (error) { alert('❌ เชื่อมต่อไม่ได้: ' + error); }
         }
 
         async function sendChat() {
-            const chatInput = document.getElementById('chat-input');
-            const text = chatInput.value.trim();
-            if(!text) return;
-            
-            chatInput.value = ''; 
-            
+            const chatInput = document.getElementById('chat-input'); const text = chatInput.value.trim(); if(!text) return;
+            chatInput.value = '';
             const payload = { type: "Chat", text: text, uploaderName: profiles[currentUserRole].name, uploaderPic: profiles[currentUserRole].pic, role: currentUserRole };
-            try {
-                await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
-                await loadData();
-            } catch (error) { alert('ส่งข้อความไม่สำเร็จครับ'); }
+            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); await loadData(); } catch (error) { alert('ส่งข้อความไม่สำเร็จครับ'); }
         }
 
-        async function toggleLike(imgUrl) {
-            const payload = { type: "Like", imgUrl: imgUrl, role: currentUserRole, uploaderPic: profiles[currentUserRole].pic };
-            try {
-                await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
-                loadData();
-            } catch (error) { alert('เกิดข้อผิดพลาด'); }
+        // ลบข้อมูลแบบระบุให้ชัวร์
+        async function deleteItem(sheetName, id) {
+            if(!confirm('แน่ใจนะว่าจะลบข้อมูลนี้ถาวร? 🥺')) return;
+            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify({ type: "Delete", sheetName: sheetName, id: id, role: currentUserRole }) }); loadData(); } catch (error) {}
+        }
+
+        // ระบบกดรีแอคชั่นสไตล์ Facebook
+        function toggleReactBox(id) { document.getElementById(id).classList.toggle('show'); }
+        async function sendReaction(imgUrl, emoji) {
+            const payload = { type: "Like", imgUrl: imgUrl, role: currentUserRole, uploaderPic: profiles[currentUserRole].pic, reaction: emoji };
+            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); loadData(); } catch (error) { console.error(error); }
         }
 
         async function addComment(imgUrl, index) {
-            let input = document.getElementById(`comment-input-${index}`);
-            let text = input.value.trim();
-            if(!text) return;
-            
-            input.value = 'กำลังส่ง...';
-            input.disabled = true;
-            
-            const payload = { 
-                type: "Comment", 
-                imgUrl: imgUrl, 
-                text: text, 
-                uploaderName: profiles[currentUserRole].name, 
-                uploaderPic: profiles[currentUserRole].pic 
-            };
-            try {
-                await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
-                loadData();
-            } catch (error) { alert('เกิดข้อผิดพลาด'); }
+            let input = document.getElementById(`comment-input-${index}`); let text = input.value.trim(); if(!text) return;
+            input.value = 'กำลังส่ง...'; input.disabled = true;
+            const payload = { type: "Comment", imgUrl: imgUrl, text: text, uploaderName: profiles[currentUserRole].name, uploaderPic: profiles[currentUserRole].pic };
+            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); loadData(); } catch (error) { alert('เกิดข้อผิดพลาด'); }
         }
 
         function toggleCommentBox(index) {
-            let box = document.getElementById(`comment-box-${index}`);
-            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+            let box = document.getElementById(`comment-box-${index}`); box.style.display = box.style.display === 'none' ? 'block' : 'none';
+        }
+
+        async function addAppointment(event) {
+            let date = document.getElementById('appt-date').value; let time = document.getElementById('appt-time').value; let text = document.getElementById('appt-text').value;
+            if(!date || !time || !text) return alert('กรุณากรอกข้อมูลนัดหมายให้ครบนะค๊าบ!');
+            event.target.innerText = "กำลังบันทึก..."; event.target.disabled = true;
+            const payload = { type: "Appointments", date: date, time: time, text: text, uploaderName: profiles[currentUserRole].name, uploaderPic: profiles[currentUserRole].pic, role: currentUserRole };
+            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); document.getElementById('appt-date').value = ''; document.getElementById('appt-time').value = ''; document.getElementById('appt-text').value = ''; alert('บันทึกนัดหมายสำเร็จแล้ว! 🎉'); loadData(); } catch(e){}
+            event.target.innerText = "บันทึกนัดหมาย"; event.target.disabled = false;
+        }
+
+        async function markAppointmentComplete(timestamp) {
+            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify({ type: "CompleteAppointment", timestamp: timestamp, role: currentUserRole }) }); loadData(); } catch (error) {}
+        }
+
+        // ตัวจับเวลาป้องกัน NaN 
+        function startCountdownTimer() {
+            setInterval(() => {
+                document.querySelectorAll('.countdown-timer').forEach(el => {
+                    let targetAttr = el.getAttribute('data-target');
+                    if(!targetAttr) return;
+                    let targetDate = new Date(targetAttr).getTime();
+                    let now = new Date().getTime();
+                    
+                    if(isNaN(targetDate)) {
+                        el.innerText = "⏳ รอเวลานัด...";
+                        return;
+                    }
+
+                    let diff = targetDate - now;
+                    if (diff < 0) { el.innerText = "🎉 ถึงเวลานัดแล้วจ้า!"; el.style.color = "#2ed573"; } 
+                    else {
+                        let d = Math.floor(diff / (1000 * 60 * 60 * 24)); let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)); let s = Math.floor((diff % (1000 * 60)) / 1000);
+                        let timeStr = "⏳ อีก "; if (d > 0) timeStr += `${d} วัน `; timeStr += `${h} ชม. ${m} นาที ${s} วิ.`; el.innerText = timeStr;
+                    }
+                });
+            }, 1000);
         }
 
         function createBadge(name, pic) {
@@ -538,112 +500,200 @@
             return '';
         }
 
+        // ระบบดึงข้อมูลแบบใหม่ครั้งเดียวจบ เร็วสุดๆ
         async function loadData() {
             try {
-                const [profRes, memoRes, chatRes, musicRes] = await Promise.all([
-                    fetch(scriptUrl + '?type=Profiles'),
-                    fetch(scriptUrl + '?type=Memories'),
-                    fetch(scriptUrl + '?type=Chat'),
-                    fetch(scriptUrl + '?type=Music')
-                ]);
+                const res = await fetch(scriptUrl);
+                const allData = await res.json();
                 
-                const [profData, memoData, chatData, musicData] = await Promise.all([
-                    profRes.json(),
-                    memoRes.json(),
-                    chatRes.json(),
-                    musicRes.json()
-                ]);
+                const profData = allData.profiles || [];
+                const memoData = allData.memories || [];
+                const chatData = allData.chat || [];
+                const musicData = allData.music || [];
+                const apptData = allData.appointments || [];
 
-                // อัปเดตข้อมูลแรงค์ล่าสุด
-                profData.forEach(row => {
-                    let role = row[0];
-                    if(profiles[role]) {
-                        profiles[role].name = row[1] || profiles[role].name;
-                        profiles[role].pic = row[2] || profiles[role].pic;
-                        profiles[role].mood = row[3] || profiles[role].mood;
-                        profiles[role].points = parseInt(row[4]) || 0;
-                    }
-                });
+                if(Array.isArray(profData)) {
+                    profData.forEach(row => {
+                        if(!row || !row[0]) return;
+                        let role = row[0];
+                        if(profiles[role]) {
+                            profiles[role].name = row[1] || profiles[role].name; profiles[role].pic = row[2] || profiles[role].pic;
+                            profiles[role].mood = row[3] || profiles[role].mood; profiles[role].points = parseInt(row[4]) || 0;
+                        }
+                    });
+                }
                 updateHeaderUI();
 
-                // 1. เรนเดอร์ไดอารี่
-                document.getElementById('memories-container').innerHTML = memoData.length ? memoData.map((row, index) => {
-                    let imgUrl = row[1];
-                    let likes = []; try { likes = row[6] ? JSON.parse(row[6]) : []; } catch(e){}
-                    let comments = []; try { comments = row[7] ? JSON.parse(row[7]) : []; } catch(e){}
+                // 1. ไดอารี่ (ซ่อนและลบเมนูทิ้งไปแล้ว)
+                let memoHTML = '';
+                if(Array.isArray(memoData)) {
+                    memoHTML = memoData.filter(row => row && row[0] && row[1]).map((row, index) => {
+                        let timestamp = row[0]; let imgUrl = row[1]; let caption = row[2] || ''; let uName = row[3] || ''; let uPic = row[4] || ''; let role = row[5] || '';
+                        let likes = []; try { likes = row[6] ? JSON.parse(row[6]) : []; } catch(e){}
+                        let comments = []; try { comments = row[7] ? JSON.parse(row[7]) : []; } catch(e){}
 
-                    let isLiked = likes.some(l => l.role === currentUserRole);
-                    let heartIcon = isLiked ? '❤️' : '🤍';
-                    let likePics = likes.map(l => `<img src="${l.pic}" style="width:22px; height:22px; border-radius:50%; margin-left:5px; border: 1.5px solid #ffb6c1; object-fit:cover;" referrerpolicy="no-referrer">`).join('');
+                        let myReact = Array.isArray(likes) ? likes.find(l => l && l.role === currentUserRole) : null;
+                        let currentButtonText = myReact ? `${myReact.reaction || '❤️'}` : '🤍 ความรู้สึก';
 
-                    let commentList = comments.length > 0 ? comments.map(c => `
-                        <div style="text-align: left; font-size: 13px; margin-bottom: 8px; display:flex; gap:8px; align-items:flex-start;">
-                            <img src="${c.pic}" style="width:20px; height:20px; border-radius:50%; margin-top:2px; object-fit:cover;" referrerpolicy="no-referrer">
-                            <div style="background: #fff0f5; padding: 6px 10px; border-radius: 12px; max-width:85%;">
-                                <strong style="color:var(--primary); font-size:12px;">${c.name}</strong><br>
-                                <span style="color:var(--text);">${c.text}</span>
-                            </div>
-                        </div>
-                    `).join('') : '<p style="text-align:center; color:#aaa; font-size:12px;">ยังไม่มีคอมเมนต์จ้า</p>';
+                        let likePics = '';
+                        if(Array.isArray(likes) && likes.length > 0) {
+                            likePics = `<div style="display:flex; align-items:center;">` + likes.map((l, i) => {
+                                if(!l) return '';
+                                let reactEmoji = l.reaction || '❤️';
+                                let zIndex = 10 - i;
+                                let margin = i > 0 ? '-10px' : '0';
+                                return `
+                                <div class="like-pic-frame" style="z-index: ${zIndex}; margin-left: ${margin};">
+                                    <img src="${l.pic}" referrerpolicy="no-referrer">
+                                    <div class="react-badge-mini">${reactEmoji}</div>
+                                </div>`;
+                            }).join('') + `</div>`;
+                        }
 
-                    return `
-                    <div class="polaroid">
-                        ${createBadge(row[3], row[4])}
-                        <img class="main-img" src="${imgUrl}" alt="Memory" referrerpolicy="no-referrer">
-                        <p>${row[2]}</p>
-                        
-                        <div class="reaction-bar">
-                            <div style="display:flex; align-items:center; cursor:pointer;" onclick="toggleLike('${imgUrl}')">
-                                <span style="font-size:22px;">${heartIcon}</span>
-                                <div style="display:flex; margin-left:3px;">${likePics}</div>
-                            </div>
-                            <div style="display:flex; align-items:center; cursor:pointer; color:#888; font-weight:600; font-size:14px; gap:5px;" onclick="toggleCommentBox('${index}')">
-                                <span style="font-size:20px;">💬</span>
-                                <span>${comments.length}</span>
-                            </div>
-                        </div>
-                        
-                        <div id="comment-box-${index}" style="display:none; margin-top:15px; border-top: 1px dashed #eee; padding-top:15px;">
-                            <div style="max-height: 150px; overflow-y: auto; margin-bottom:12px; padding-right:5px;">
-                                ${commentList}
-                            </div>
-                            <div style="display:flex; gap:8px;">
-                                <input type="text" id="comment-input-${index}" placeholder="พิมพ์คอมเม้น..." style="width:100%; padding:8px 12px; border-radius:15px; border:1px solid var(--primary-light); font-size:13px; outline:none; font-family:'Mali', cursive;" onkeypress="if(event.key === 'Enter') addComment('${imgUrl}', '${index}')">
-                                <button class="btn-main" style="width:auto; padding:8px 15px; font-size:13px;" onclick="addComment('${imgUrl}', '${index}')">ส่ง</button>
-                            </div>
-                        </div>
-                    </div>`;
-                }).reverse().join('') : '<p style="text-align:center; color:#aaa; grid-column: 1 / -1;">ยังไม่มีไดอารี่เลย ลองเพิ่มดูสิครับ</p>';
+                        let commentList = Array.isArray(comments) && comments.length > 0 ? comments.map(c => c ? `
+                            <div style="text-align: left; font-size: 13px; margin-bottom: 8px; display:flex; gap:8px; align-items:flex-start;">
+                                <img src="${c.pic}" style="width:20px; height:20px; border-radius:50%; object-fit:cover;" referrerpolicy="no-referrer">
+                                <div style="background: #fff0f5; padding: 6px 10px; border-radius: 12px; max-width:85%;">
+                                    <strong style="color:var(--primary); font-size:12px;">${c.name}</strong><br><span style="color:var(--text);">${c.text}</span>
+                                </div>
+                            </div>` : '').join('') : '<p style="text-align:center; color:#aaa; font-size:12px;">ยังไม่มีคอมเมนต์จ้า</p>';
 
-                // 2. เรนเดอร์แชท
-                let chatHTML = '';
-                chatData.forEach(row => {
-                    let isMe = row[4] === currentUserRole;
-                    let cClass = isMe ? 'me' : 'other';
-                    chatHTML += `
-                        <div class="chat-msg ${cClass}">
-                            <img src="${row[3] || 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png'}" referrerpolicy="no-referrer">
-                            <div>
-                                <div class="chat-sender">${row[2] || 'User'}</div>
-                                <div class="chat-bubble" title="${row[0]}">${row[1]}</div>
+                        return `
+                        <div class="polaroid">
+                            <div class="uploader-badge"><img src="${uPic}" referrerpolicy="no-referrer"><span>${uName}</span></div>
+                            <img class="main-img" src="${imgUrl}" alt="Memory" referrerpolicy="no-referrer">
+                            <p>${caption}</p>
+                            
+                            <div class="reaction-bar">
+                                <div class="fb-react-container">
+                                    <div class="fb-react-btn" onclick="toggleReactBox('react-box-${index}')"><span>${currentButtonText}</span></div>
+                                    <div class="fb-react-box" id="react-box-${index}">
+                                        <span class="react-emoji" onclick="sendReaction('${imgUrl}', '👍')">👍</span>
+                                        <span class="react-emoji" onclick="sendReaction('${imgUrl}', '❤️')">❤️</span>
+                                        <span class="react-emoji" onclick="sendReaction('${imgUrl}', '😂')">😂</span>
+                                        <span class="react-emoji" onclick="sendReaction('${imgUrl}', '😮')">😮</span>
+                                        <span class="react-emoji" onclick="sendReaction('${imgUrl}', '😢')">😢</span>
+                                        <span class="react-emoji" onclick="sendReaction('${imgUrl}', '😡')">😡</span>
+                                    </div>
+                                </div>
+                                ${likePics}
+                                <div style="cursor:pointer; color:#888; font-weight:600; font-size:14px; padding: 5px;" onclick="toggleCommentBox('${index}')">
+                                    💬 ${comments.length || 0}
+                                </div>
+                            </div>
+                            
+                            <div id="comment-box-${index}" style="display:none; margin-top:15px; border-top: 1px dashed #eee; padding-top:15px;">
+                                <div style="max-height: 150px; overflow-y: auto; margin-bottom:12px;">${commentList}</div>
+                                <div style="display:flex; gap:8px;">
+                                    <input type="text" id="comment-input-${index}" placeholder="พิมพ์คอมเม้น..." style="width:100%; padding:8px 12px; border-radius:15px; border:1px solid var(--primary-light); font-size:13px; outline:none; font-family:'Mali', cursive;" onkeypress="if(event.key === 'Enter') addComment('${imgUrl}', '${index}')">
+                                    <button class="btn-main" style="width:auto; padding:8px 15px; font-size:13px;" onclick="addComment('${imgUrl}', '${index}')">ส่ง</button>
+                                </div>
                             </div>
                         </div>`;
-                });
-                const chatContainer = document.getElementById('chat-container');
-                chatContainer.innerHTML = chatHTML || '<p style="text-align:center; color:#aaa; margin-top:20px;">ยังไม่มีข้อความ เริ่มคุยกันเลย! 💕</p>';
+                    }).reverse().join('');
+                }
+                document.getElementById('memories-container').innerHTML = memoHTML || '<p style="text-align:center; color:#aaa; grid-column: 1 / -1;">ยังไม่มีไดอารี่เลย ลองเพิ่มดูสิครับ</p>';
+
+                // 2. แชท
+                let chatHTML = '';
+                if(Array.isArray(chatData)) {
+                    chatHTML = chatData.filter(row => row && row[0]).map(row => {
+                        let isMe = row[4] === currentUserRole; let cClass = isMe ? 'me' : 'other';
+                        return `
+                            <div class="chat-msg ${cClass}">
+                                <img src="${row[3] || 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png'}" referrerpolicy="no-referrer">
+                                <div>
+                                    <div class="chat-sender" style="text-align:${isMe ? 'right' : 'left'}; font-size:11px; color:#888; margin-bottom:3px;">${row[2] || 'User'}</div>
+                                    <div class="chat-bubble" title="${row[0]}">${row[1]}</div>
+                                </div>
+                            </div>`;
+                    }).join('');
+                }
+                document.getElementById('chat-container').innerHTML = chatHTML || '<p style="text-align:center; color:#aaa; margin-top:20px;">ยังไม่มีข้อความ เริ่มคุยกันเลย! 💕</p>';
                 forceScrollChat();
 
-                // 3. เรนเดอร์เพลง
-                document.getElementById('music-container').innerHTML = musicData.length ? musicData.map(row => 
-                    `<div class="music-card">
-                        <div style="display:flex; flex-direction:column; gap:5px;">
-                            <span><strong>${row[2]}</strong></span>
-                            ${row[3] ? `<span style="font-size:11px; color:#888;">เพิ่มโดย: ${row[3]}</span>` : ''}
-                        </div>
-                        <a href="${row[1]}" target="_blank" class="btn-main" style="width:auto; padding:8px 15px; text-decoration:none; font-size:14px;">ฟังเพลง 🎵</a>
-                    </div>`
-                ).reverse().join('') : '<p style="text-align:center; color:#aaa;">ยังไม่มีเพลงในเพลย์ลิสต์เลยครับ</p>';
-            } catch (error) { console.error(error); }
+                // 3. เพลง
+                let musicHTML = '';
+                if(Array.isArray(musicData)) {
+                    musicHTML = musicData.filter(row => row && row[0]).map((row, index) => {
+                        let timestamp = row[0]; let link = row[1]; let title = row[2] || ''; let uName = row[3] || ''; let role = row[5];
+                        let deleteBtn = (role === currentUserRole) ? `<button class="btn-main" style="background:#ff4757; width:auto; padding:8px 12px; font-size:14px; margin-left:5px;" onclick="deleteItem('Music', '${timestamp}')">🗑️</button>` : '';
+
+                        return `
+                        <div class="music-card">
+                            <div style="display:flex; flex-direction:column; gap:4px; text-align:left; padding-right:20px;">
+                                <span><strong>${title}</strong></span><span style="font-size:11px; color:#888;">เพิ่มโดย: ${uName}</span>
+                            </div>
+                            <div style="display:flex; align-items:center;">
+                                <a href="${link}" target="_blank" class="btn-main" style="width:auto; padding:8px 15px; text-decoration:none; font-size:14px;">ฟังเพลง 🎵</a>
+                                ${deleteBtn}
+                            </div>
+                        </div>`;
+                    }).reverse().join('');
+                }
+                document.getElementById('music-container').innerHTML = musicHTML || '<p style="text-align:center; color:#aaa;">ยังไม่มีเพลงในเพลย์ลิสต์เลยครับ</p>';
+
+                // 4. นัดหมาย
+                let apptHTML = '';
+                if(Array.isArray(apptData)) {
+                    apptHTML = apptData.filter(row => row && row[0]).map((row, index) => {
+                        let timestamp = row[0]; let aDate = String(row[1] || ""); let aTime = String(row[2] || ""); let aText = row[3] || ""; let uPic = row[5] || ""; let role = row[6] || "";
+                        let completedBy = []; try { completedBy = row[7] ? JSON.parse(row[7]) : []; } catch(e){}
+
+                        let cleanDate = aDate.replace(/'/g, "");
+                        if (cleanDate.includes('T')) cleanDate = cleanDate.split('T')[0];
+                        let cleanTime = aTime.replace(/'/g, "");
+                        if (cleanTime.includes('T')) {
+                            let tempD = new Date(cleanTime);
+                            cleanTime = !isNaN(tempD.getTime()) ? String(tempD.getHours()).padStart(2, '0') + ':' + String(tempD.getMinutes()).padStart(2, '0') : "00:00";
+                        } else if (cleanTime.includes(':')) {
+                            cleanTime = cleanTime.split(':').slice(0,2).join(':');
+                        } else { cleanTime = "00:00"; }
+                        
+                        let targetDateStr = `${cleanDate}T${cleanTime}:00`;
+                        let isBothDone = Array.isArray(completedBy) && completedBy.includes('boy') && completedBy.includes('girl');
+                        let iDone = Array.isArray(completedBy) && completedBy.includes(currentUserRole);
+
+                        let boyBadge = Array.isArray(completedBy) && completedBy.includes('boy') ? `<span style="color:var(--primary);">✅ เค้า(ชาย)</span>` : `<span style="color:#aaa;">⏳ เค้า(ชาย)</span>`;
+                        let girlBadge = Array.isArray(completedBy) && completedBy.includes('girl') ? `<span style="color:var(--primary);">✅ เค้า(หญิง)</span>` : `<span style="color:#aaa;">⏳ เค้า(หญิง)</span>`;
+                        
+                        let actionBtn = isBothDone ? `<div style="margin-top:10px; padding:8px; background:#e6ffe6; color:#2ed573; border-radius:10px; text-align:center; font-weight:bold; font-size:13px;">🎉 ภารกิจสำเร็จ! (+10 แต้ม)</div>` : 
+                                       (iDone ? `<div style="margin-top:10px; padding:8px; background:#f0f0f0; color:#888; border-radius:10px; text-align:center; font-size:13px;">รออีกฝ่ายติ๊กสำเร็จ...</div>` : 
+                                       `<button class="btn-main" style="margin-top:10px; width:100%; padding:8px; font-size:13px;" onclick="markAppointmentComplete('${timestamp}')">✔️ ติ๊กสำเร็จกิจกรรม</button>`);
+
+                        // ปุ่มลบตรงตัวเลย สำหรับนัดหมายเท่านั้น
+                        let deleteBtn = (role === currentUserRole) ? `<button class="btn-main" style="background:#ff4757; width:100%; padding:8px; font-size:13px; margin-top:8px;" onclick="deleteItem('Appointments', '${timestamp}')">🗑️ ลบนัดหมายนี้</button>` : '';
+
+                        return `
+                        <div class="polaroid" style="text-align:left; padding:15px; display:flex; flex-direction:column; gap:10px;">
+                            <div style="display:flex; gap:15px; align-items:center;">
+                                <img src="${uPic}" style="width:50px; height:50px; border-radius:50%; object-fit:cover; border: 2px solid var(--primary-light);" referrerpolicy="no-referrer">
+                                <div style="flex:1;">
+                                    <div style="font-weight:bold; color:var(--text); font-size:16px;">${aText}</div>
+                                    <div style="font-size:13px; color:#888; margin-top:3px;">📅 ${cleanDate} | ⏰ ${cleanTime} น.</div>
+                                    ${!isBothDone ? `<div class="countdown-timer" data-target="${targetDateStr}" style="margin-top:8px; font-weight:bold; color:var(--primary); background:#fff0f5; padding:5px 10px; border-radius:10px; display:inline-block; font-size:13px;">กำลังคำนวณเวลา...</div>` : ''}
+                                </div>
+                            </div>
+                            <div style="border-top: 1px dashed #eee; padding-top: 10px;">
+                                <div style="font-size:12px; font-weight:bold; color:#555; margin-bottom:5px;">สถานะการทำกิจกรรม:</div>
+                                <div style="display:flex; justify-content:space-around; font-size:12px; background:#f9f9f9; padding:5px; border-radius:10px;">
+                                    ${boyBadge} | ${girlBadge}
+                                </div>
+                                ${actionBtn}
+                                ${deleteBtn}
+                            </div>
+                        </div>`;
+                    }).reverse().join('');
+                }
+                document.getElementById('appointments-container').innerHTML = apptHTML || '<p style="text-align:center; color:#aaa;">ยังไม่มีนัดหมายเลยจ้า</p>';
+
+            } catch (error) { console.error("Error Details:", error); }
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('.fb-react-container')) {
+                document.querySelectorAll('.fb-react-box').forEach(b => b.classList.remove('show'));
+            }
         }
     </script>
 </body>
