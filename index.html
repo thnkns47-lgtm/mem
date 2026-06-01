@@ -14,16 +14,16 @@
         .login-box { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(255, 117, 140, 0.2); text-align: center; width: 100%; max-width: 320px; backdrop-filter: blur(5px); }
         .login-box h2 { color: var(--primary); font-size: 24px; margin-top: 0; margin-bottom: 20px; }
         
-        input#passcode { padding: 15px; border: 2px solid var(--primary-light); border-radius: 15px; font-family: 'Mali', cursive; margin-bottom: 20px; width: 100%; outline: none; font-size: 20px; text-align: center; letter-spacing: 5px; background: #fffafb; color: var(--primary); font-weight: 700; transition: 0.3s; }
+        input#passcode { padding: 15px; border: 2px solid var(--primary-light); border-radius: 15px; font-family: 'Mali', cursive; margin-bottom: 20px; width: 100%; outline: none; font-size: 20px; text-align: center; letter-spacing: 5px; background: #fffafb; color: var(--primary); font-weight: 700; transition: 0.3s; touch-action: manipulation; }
         input#passcode:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255, 117, 140, 0.2); }
         
-        .pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px; }
-        .pin-btn { background: white; border: 2px solid #ffe4e1; color: var(--text); font-size: 20px; border-radius: 50%; width: 65px; height: 65px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-family: 'Mali', cursive; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px; touch-action: manipulation; }
+        .pin-btn { background: white; border: 2px solid #ffe4e1; color: var(--text); font-size: 20px; border-radius: 50%; width: 65px; height: 65px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-family: 'Mali', cursive; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
         .pin-btn:active, .pin-btn:hover { background: var(--primary-light); color: white; border-color: var(--primary); transform: scale(0.95); }
         .pin-btn.action-btn { font-size: 16px; border-color: #eee; }
         .pin-btn.submit-btn { background: var(--primary); color: white; border-color: var(--primary); font-size: 18px; }
 
-        .btn-main { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; border: none; padding: 12px 25px; border-radius: 20px; font-family: 'Mali', cursive; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 117, 140, 0.3); transition: 0.3s; width: 100%; }
+        .btn-main { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; border: none; padding: 12px 25px; border-radius: 20px; font-family: 'Mali', cursive; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 117, 140, 0.3); transition: 0.3s; width: 100%; touch-action: manipulation; }
         .btn-main:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4); }
         .btn-main:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; transform: none; }
         
@@ -41,7 +41,7 @@
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
         .menu-bar { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; background: white; padding: 15px; border-radius: 30px; box-shadow: 0 8px 25px rgba(255, 117, 140, 0.15); margin-bottom: 30px; }
-        .menu-btn { background-color: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 10px 18px; border-radius: 25px; font-family: 'Mali', cursive; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .menu-btn { background-color: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 10px 18px; border-radius: 25px; font-family: 'Mali', cursive; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.3s; touch-action: manipulation; }
         .menu-btn.active, .menu-btn:hover { background-color: var(--primary); color: white; transform: translateY(-2px); }
         
         .tab-section { display: none; }
@@ -59,7 +59,7 @@
         .uploader-badge img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
         
         .reaction-bar { display: flex; justify-content: space-around; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #eee; align-items: center; }
-        .react-btn { font-family: 'Mali', cursive; font-size: 14px; font-weight: 600; color: #888; cursor: pointer; transition: 0.2s; user-select: none; display: flex; align-items: center; gap: 5px; }
+        .react-btn { font-family: 'Mali', cursive; font-size: 14px; font-weight: 600; color: #888; cursor: pointer; transition: 0.2s; user-select: none; display: flex; align-items: center; gap: 5px; touch-action: manipulation; }
 
         .music-card { background: white; padding: 15px 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-left: 5px solid var(--primary); position: relative; }
         
@@ -174,7 +174,7 @@
     </div>
 
     <script>
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzEYhM0r_B1RPLojZkJyFbOY-GZxsJgYsbcfEERUrsix8WHYH0WprpirFiYIpmIqE4WZQ/exec'
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzEYhM0r_B1RPLojZkJyFbOY-GZxsJgYsbcfEERUrsix8WHYH0WprpirFiYIpmIqE4WZQ/exec';
         
         let currentUserRole = '';
         
@@ -323,7 +323,6 @@
             document.getElementById('tab-' + tabName).classList.add('active');
             document.getElementById('btn-' + tabName).classList.add('active');
             
-            // บังคับให้รูดลงล่างทันทีเมื่อกดสลับมาแท็บแชท
             if(tabName === 'chat') {
                 forceScrollChat();
             }
@@ -397,7 +396,6 @@
             } catch (error) { alert('ส่งข้อความไม่สำเร็จครับ'); }
         }
 
-        // ปรับปรุงระบบกดหัวใจให้ส่งตัวแปรลิงก์รูปภาพ (imgUrl) ไปแทนความแม่นยำสูง
         async function toggleLike(imgUrl) {
             const payload = { type: "Like", imgUrl: imgUrl, role: currentUserRole, uploaderPic: profiles[currentUserRole].pic };
             try {
@@ -406,7 +404,6 @@
             } catch (error) { alert('เกิดข้อผิดพลาด'); }
         }
 
-        // ปรับปรุงระบบส่งคอมเมนต์อิงตามลิงก์รูปภาพ
         async function addComment(imgUrl, index) {
             let input = document.getElementById(`comment-input-${index}`);
             let text = input.value.trim();
@@ -438,7 +435,6 @@
             return '';
         }
 
-        // ปรับมาใช้ระบบ Parallel Fetch ดึงฐานข้อมูลพร้อมกัน เร็วขึ้น 3 เท่าและรูดแชทลงให้ทันใจ
         async function loadData() {
             try {
                 const [memoRes, chatRes, musicRes] = await Promise.all([
@@ -453,7 +449,6 @@
                     musicRes.json()
                 ]);
 
-                // 1. เรนเดอร์ไดอารี่
                 document.getElementById('memories-container').innerHTML = memoData.length ? memoData.map((row, index) => {
                     let imgUrl = row[1];
                     let likes = []; try { likes = row[6] ? JSON.parse(row[6]) : []; } catch(e){}
@@ -502,7 +497,6 @@
                     </div>`;
                 }).reverse().join('') : '<p style="text-align:center; color:#aaa; grid-column: 1 / -1;">ยังไม่มีไดอารี่เลย ลองเพิ่มดูสิครับ</p>';
 
-                // 2. เรนเดอร์แชท
                 let chatHTML = '';
                 chatData.forEach(row => {
                     let isMe = row[4] === currentUserRole;
@@ -519,10 +513,8 @@
                 const chatContainer = document.getElementById('chat-container');
                 chatContainer.innerHTML = chatHTML || '<p style="text-align:center; color:#aaa; margin-top:20px;">ยังไม่มีข้อความ เริ่มคุยกันเลย! 💕</p>';
                 
-                // สั่งให้แชทรูดลงมาล่างสุดทันที
                 forceScrollChat();
 
-                // 3. เรนเดอร์เพลง
                 document.getElementById('music-container').innerHTML = musicData.length ? musicData.map(row => 
                     `<div class="music-card">
                         <div style="display:flex; flex-direction:column; gap:5px;">
