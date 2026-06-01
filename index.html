@@ -18,7 +18,7 @@
         input#passcode:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255, 117, 140, 0.2); }
         
         .pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px; touch-action: manipulation; }
-        .pin-btn { background: white; border: 2px solid #ffe4e1; color: var(--text); font-size: 20px; border-radius: 50%; width: 65px; height: 65px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-family: 'Mali', cursive; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+        .pin-btn { background: white; border: 2px solid #ffe4e1; color: var(--text); font-size: 20px; border-radius: 50%; width: 65px; height: 65px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-family: 'Mali', cursive; font-weight: 700; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); user-select: none; }
         .pin-btn:active, .pin-btn:hover { background: var(--primary-light); color: white; border-color: var(--primary); transform: scale(0.95); }
         .pin-btn.action-btn { font-size: 16px; border-color: #eee; }
         .pin-btn.submit-btn { background: var(--primary); color: white; border-color: var(--primary); font-size: 18px; }
@@ -34,14 +34,28 @@
         .user-status { display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s; }
         .user-status:hover { transform: scale(1.05); }
         .profile-img-container { position: relative; }
-        .profile-img-container img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); background: #f9f9f9; }
-        .mood-badge { position: absolute; bottom: -3px; right: -5px; background: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); border: 1px solid #ffe4e1; }
+        .profile-img-container img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; background: #f9f9f9; }
+        .mood-badge { position: absolute; bottom: -3px; right: -5px; background: white; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); border: 1px solid #ffe4e1; z-index: 5; }
         .user-status span { font-weight: 700; font-size: 14px; color: var(--text); max-width: 80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .heart-divider { color: var(--primary-light); font-size: 20px; animation: heartbeat 1.5s infinite; }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        .menu-bar { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; background: white; padding: 15px; border-radius: 30px; box-shadow: 0 8px 25px rgba(255, 117, 140, 0.15); margin-bottom: 30px; }
-        .menu-btn { background-color: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 10px 18px; border-radius: 25px; font-family: 'Mali', cursive; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.3s; touch-action: manipulation; }
+        /* ระบบกรอบแรงค์ต่างๆ */
+        .rank-Iron { border: 3px solid #8e959e !important; box-shadow: 0 0 5px #8e959e; }
+        .rank-Bronze { border: 3px solid #cd7f32 !important; box-shadow: 0 0 8px #cd7f32; }
+        .rank-Silver { border: 3px solid #c0c0c0 !important; box-shadow: 0 0 10px #c0c0c0; }
+        .rank-Gold { border: 3px solid #ffd700 !important; box-shadow: 0 0 12px #ffd700; }
+        .rank-Platinum { border: 3px solid #48d1cc !important; box-shadow: 0 0 15px #48d1cc; }
+        .rank-Diamond { border: 3px solid #00bfff !important; box-shadow: 0 0 18px #00bfff; }
+        .rank-Master { border: 3px solid #da70d6 !important; box-shadow: 0 0 20px #da70d6; }
+        .rank-Grandmaster { border: 3px solid #ff4500 !important; box-shadow: 0 0 22px #ff4500; }
+        .rank-Challenger { border: 3px solid #1e90ff !important; box-shadow: 0 0 25px #1e90ff; animation: pulse-chal 2s infinite; }
+        .rank-Radiant { border: 4px solid #ffdf00 !important; box-shadow: 0 0 30px #ffdf00; animation: pulse-rad 1.5s infinite; }
+        @keyframes pulse-chal { 0%, 100% { box-shadow: 0 0 15px #1e90ff; } 50% { box-shadow: 0 0 30px #1e90ff; } }
+        @keyframes pulse-rad { 0%, 100% { box-shadow: 0 0 20px #ffdf00; border-color: #ffdf00; } 50% { box-shadow: 0 0 40px #ffae42; border-color: #ffae42; } }
+
+        .menu-bar { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; background: white; padding: 15px; border-radius: 30px; box-shadow: 0 8px 25px rgba(255, 117, 140, 0.15); margin-bottom: 30px; }
+        .menu-btn { background-color: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 8px 12px; border-radius: 25px; font-family: 'Mali', cursive; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.3s; touch-action: manipulation; }
         .menu-btn.active, .menu-btn:hover { background-color: var(--primary); color: white; transform: translateY(-2px); }
         
         .tab-section { display: none; }
@@ -56,10 +70,9 @@
         .polaroid img.main-img { width: 100%; height: 240px; object-fit: cover; border: 1px solid #eee; border-radius: 3px; }
         .polaroid p { margin: 15px 0 0 0; font-weight: 600; font-size: 15px; color: var(--text); }
         .uploader-badge { position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,0.95); padding: 4px 10px 4px 4px; border-radius: 20px; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 11px; font-weight: 700; color: var(--primary); z-index: 5; }
-        .uploader-badge img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
+        .uploader-badge img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; border: none !important; box-shadow: none !important; }
         
         .reaction-bar { display: flex; justify-content: space-around; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #eee; align-items: center; }
-        .react-btn { font-family: 'Mali', cursive; font-size: 14px; font-weight: 600; color: #888; cursor: pointer; transition: 0.2s; user-select: none; display: flex; align-items: center; gap: 5px; touch-action: manipulation; }
 
         .music-card { background: white; padding: 15px 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-left: 5px solid var(--primary); position: relative; }
         
@@ -75,7 +88,7 @@
         
         .profile-preview { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-light); margin-bottom: 15px; }
 
-        @media (max-width: 480px) { .menu-bar { padding: 10px; gap: 5px; } .menu-btn { font-size: 12px; padding: 8px 10px; flex: 1 1 auto; text-align: center; } .polaroid-grid { grid-template-columns: 1fr; } .polaroid img.main-img { height: 280px; } .header-profiles { gap: 8px; padding: 10px 15px; } .user-status span { font-size: 12px; max-width: 60px; } .chat-container { height: 350px; } }
+        @media (max-width: 480px) { .menu-bar { padding: 10px; gap: 5px; } .menu-btn { font-size: 11px; padding: 8px 10px; flex: 1 1 auto; text-align: center; } .polaroid-grid { grid-template-columns: 1fr; } .polaroid img.main-img { height: 280px; } .header-profiles { gap: 8px; padding: 10px 15px; } .user-status span { font-size: 12px; max-width: 60px; } .chat-container { height: 350px; } }
     </style>
 </head>
 <body>
@@ -112,6 +125,8 @@
             <button class="menu-btn active" id="btn-memories" onclick="switchTab('memories')">📝 ไดอารี่</button>
             <button class="menu-btn" id="btn-chat" onclick="switchTab('chat'); loadData();">💬 แชท</button>
             <button class="menu-btn" id="btn-music" onclick="switchTab('music')">🎵 เพลง</button>
+            <!-- เพิ่มปุ่มเมนูแรงค์ -->
+            <button class="menu-btn" id="btn-rank" onclick="switchTab('rank')">🏆 แรงค์</button>
             <button class="menu-btn" id="btn-profile" onclick="switchTab('profile')">👤 โปรไฟล์</button>
         </div>
 
@@ -143,11 +158,43 @@
             <div id="music-container" style="display: flex; flex-direction: column; gap: 10px;"></div>
         </div>
 
+        <!-- แท็บแสดงระบบแรงค์ -->
+        <div id="tab-rank" class="tab-section">
+            <div class="add-form-card">
+                <h3 style="margin-top:0; color:var(--primary);">🏆 กระดานแต้มแรงค์</h3>
+                <div id="rank-display-board" style="display:flex; flex-direction:column; gap:15px; margin-bottom: 20px;"></div>
+                
+                <div style="background:#fff0f5; padding:15px; border-radius:15px; text-align:left; font-size:14px; color:var(--text);">
+                    <strong style="color:#ff4757;">📜 กติกาการไต่แรงค์:</strong>
+                    <ul style="margin-top:8px; padding-left:20px; line-height:1.6; margin-bottom:0;">
+                        <li>ลงรูปไดอารี่ หรือ ลงเพลง รับ <b>+1 แต้ม</b></li>
+                        <li>ถ้า <b>ไม่ลงอะไรเลย 1 วัน</b> หัก <b>-5 แต้ม</b></li>
+                        <li>ถ้าอยู่แรงค์สูงสุด (Radiant) ไม่ลง 1 วัน หัก <b>-10 แต้ม!</b></li>
+                        <li><span style="font-size: 12px; color:#888;">* แชทกับอัปเดตโปรไฟล์ ไม่นับแต้มนะจ๊ะ</span></li>
+                    </ul>
+                </div>
+                
+                <h4 style="margin-top:20px; color:var(--primary); margin-bottom:10px;">ลำดับแรงค์ทั้งหมด</h4>
+                <div style="font-size:13px; display:grid; grid-template-columns: 1fr 1fr; gap:10px; text-align:left; font-weight:600;">
+                    <div style="color:#8e959e;">🪨 Iron (0-9)</div>
+                    <div style="color:#cd7f32;">🥉 Bronze (10-19)</div>
+                    <div style="color:#a9a9a9;">🥈 Silver (20-29)</div>
+                    <div style="color:#ffd700;">🥇 Gold (30-39)</div>
+                    <div style="color:#48d1cc;">💠 Platinum (40-49)</div>
+                    <div style="color:#00bfff;">💎 Diamond (50-59)</div>
+                    <div style="color:#da70d6;">🔮 Master (60-69)</div>
+                    <div style="color:#ff4500;">👹 Grandmaster (70-79)</div>
+                    <div style="color:#1e90ff;">⚡ Challenger (80-89)</div>
+                    <div style="grid-column: 1 / -1; color:#ffdf00; font-weight:bold; text-align:center; font-size: 15px; margin-top: 5px;">🌟 Radiant (90+)</div>
+                </div>
+            </div>
+        </div>
+
         <div id="tab-profile" class="tab-section">
             <div class="add-form-card" style="display: flex; flex-direction: column; align-items: center;">
                 <h3 style="margin-top:0; color:var(--primary);">ตั้งค่าโปรไฟล์ของคุณ</h3>
                 <div class="profile-img-container" style="margin-bottom: 15px;">
-                    <img id="preview-profile-pic" class="profile-preview" src="" alt="profile" referrerpolicy="no-referrer" style="margin-bottom: 0;">
+                    <img id="preview-profile-pic" class="profile-preview" src="" alt="profile" referrerpolicy="no-referrer" style="margin-bottom: 0; border: 4px solid var(--primary-light);">
                     <div id="preview-mood" class="mood-badge" style="width:30px; height:30px; font-size:18px; bottom: 5px; right: 5px;">😊</div>
                 </div>
                 
@@ -174,14 +221,28 @@
     </div>
 
     <script>
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzEYhM0r_B1RPLojZkJyFbOY-GZxsJgYsbcfEERUrsix8WHYH0WprpirFiYIpmIqE4WZQ/exec';
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzEYhM0r_B1RPLojZkJyFbOY-GZxsJgYsbcfEERUrsix8WHYH0WprpirFiYIpmIqE4WZQ/exec'
         
         let currentUserRole = '';
         
         let profiles = {
-            'boy': { name: 'เค้าเอง (ชาย)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png', mood: '😊' },
-            'girl': { name: 'เค้าเอง (หญิง)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140047.png', mood: '🥰' }
+            'boy': { name: 'เค้าเอง (ชาย)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png', mood: '😊', points: 0 },
+            'girl': { name: 'เค้าเอง (หญิง)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140047.png', mood: '🥰', points: 0 }
         };
+
+        // ระบบคำนวณแรงค์
+        function getRankInfo(pts) {
+            if(pts < 10) return { name: 'Iron', cls: 'rank-Iron', max: 10 };
+            if(pts < 20) return { name: 'Bronze', cls: 'rank-Bronze', max: 20 };
+            if(pts < 30) return { name: 'Silver', cls: 'rank-Silver', max: 30 };
+            if(pts < 40) return { name: 'Gold', cls: 'rank-Gold', max: 40 };
+            if(pts < 50) return { name: 'Platinum', cls: 'rank-Platinum', max: 50 };
+            if(pts < 60) return { name: 'Diamond', cls: 'rank-Diamond', max: 60 };
+            if(pts < 70) return { name: 'Master', cls: 'rank-Master', max: 70 };
+            if(pts < 80) return { name: 'Grandmaster', cls: 'rank-Grandmaster', max: 80 };
+            if(pts < 90) return { name: 'Challenger', cls: 'rank-Challenger', max: 90 };
+            return { name: 'Radiant', cls: 'rank-Radiant', max: 'MAX' };
+        }
 
         function checkAutoLogin() {
             const input = document.getElementById('passcode');
@@ -227,6 +288,7 @@
                         profiles[role].name = row[1] || profiles[role].name;
                         profiles[role].pic = row[2] || profiles[role].pic;
                         profiles[role].mood = row[3] || profiles[role].mood;
+                        profiles[role].points = parseInt(row[4]) || 0;
                     }
                 });
             } catch(e) { console.log('ใช้โปรไฟล์เริ่มต้น'); }
@@ -243,23 +305,59 @@
             const boy = profiles['boy'];
             const girl = profiles['girl'];
             
+            let bRank = getRankInfo(boy.points);
+            let gRank = getRankInfo(girl.points);
+            
             document.getElementById('header-profiles').innerHTML = `
-                <div class="user-status" onclick="switchTab('profile')" title="โปรไฟล์ผู้ชาย">
+                <div class="user-status" onclick="switchTab('rank')" title="คลิกดูแรงค์">
                     <div class="profile-img-container">
-                        <img src="${boy.pic}" alt="boy" referrerpolicy="no-referrer">
+                        <img src="${boy.pic}" class="${bRank.cls}" alt="boy" referrerpolicy="no-referrer">
                         <div class="mood-badge">${boy.mood}</div>
                     </div>
-                    <span>${boy.name}</span>
+                    <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                        <span>${boy.name}</span>
+                        <span style="font-size:10px; color:#888;">${bRank.name} (${boy.points})</span>
+                    </div>
                 </div>
                 <div class="heart-divider">💓</div>
-                <div class="user-status" onclick="switchTab('profile')" title="โปรไฟล์ผู้หญิง">
-                    <span>${girl.name}</span>
+                <div class="user-status" onclick="switchTab('rank')" title="คลิกดูแรงค์">
+                    <div style="display:flex; flex-direction:column; align-items:flex-end;">
+                        <span>${girl.name}</span>
+                        <span style="font-size:10px; color:#888;">${gRank.name} (${girl.points})</span>
+                    </div>
                     <div class="profile-img-container">
-                        <img src="${girl.pic}" alt="girl" referrerpolicy="no-referrer">
+                        <img src="${girl.pic}" class="${gRank.cls}" alt="girl" referrerpolicy="no-referrer">
                         <div class="mood-badge">${girl.mood}</div>
                     </div>
                 </div>
             `;
+            renderRankBoard();
+        }
+
+        function renderRankBoard() {
+            const board = document.getElementById('rank-display-board');
+            let html = '';
+            ['boy', 'girl'].forEach(role => {
+                let p = profiles[role];
+                let rank = getRankInfo(p.points);
+                let progress = rank.max === 'MAX' ? 100 : ((p.points % 10) / 10) * 100; 
+                
+                html += `
+                <div style="display:flex; align-items:center; gap:15px; background:white; padding:15px; border-radius:15px; border: 1px solid #eee;">
+                    <img src="${p.pic}" class="${rank.cls}" style="width:55px; height:55px; border-radius:50%; object-fit:cover;" referrerpolicy="no-referrer">
+                    <div style="flex:1; text-align:left;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                            <strong style="color:var(--text); font-size:14px;">${p.name}</strong>
+                            <strong style="color:var(--primary); font-size:14px;">${p.points} แต้ม</strong>
+                        </div>
+                        <div style="font-size:12px; color:#888; margin-bottom:6px;">Rank: <b style="color:var(--text);">${rank.name}</b></div>
+                        <div style="background:#f0f0f0; height:8px; border-radius:4px; width:100%; overflow:hidden;">
+                            <div style="background:var(--primary); height:100%; width:${progress}%; border-radius:4px;"></div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            if(board) board.innerHTML = html;
         }
 
         function updateProfileTabUI() {
@@ -351,7 +449,7 @@
             const text = textId ? document.getElementById(textId).value : '';
             if (fileInput.files.length === 0) return alert('กรุณาเลือกรูปภาพก่อนครับ!');
             
-            alert('กำลังส่งรูปภาพและข้อมูล... รอแป๊บนึง ⏳');
+            alert('กำลังอัปโหลดและอัปเดตคะแนนแรงค์... ⏳');
             const file = fileInput.files[0];
             const base64Data = await toBase64(file);
             
@@ -363,6 +461,9 @@
                 if (result.status === "success") {
                     fileInput.value = '';
                     if(textId) document.getElementById(textId).value = '';
+                    // เพิ่มแต้มในจอฝั่งเราโชว์ทันที
+                    profiles[currentUserRole].points += 1;
+                    updateHeaderUI();
                     loadData();
                 } else alert('❌ ผิดพลาด: ' + result.message);
             } catch (error) { alert('❌ เชื่อมต่อไม่ได้: ' + error); }
@@ -378,6 +479,8 @@
                 await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
                 document.getElementById(linkId).value = '';
                 document.getElementById(textId).value = '';
+                profiles[currentUserRole].points += 1;
+                updateHeaderUI();
                 loadData();
             } catch (error) { alert('❌ เชื่อมต่อไม่ได้: ' + error); }
         }
@@ -437,18 +540,33 @@
 
         async function loadData() {
             try {
-                const [memoRes, chatRes, musicRes] = await Promise.all([
+                const [profRes, memoRes, chatRes, musicRes] = await Promise.all([
+                    fetch(scriptUrl + '?type=Profiles'),
                     fetch(scriptUrl + '?type=Memories'),
                     fetch(scriptUrl + '?type=Chat'),
                     fetch(scriptUrl + '?type=Music')
                 ]);
                 
-                const [memoData, chatData, musicData] = await Promise.all([
+                const [profData, memoData, chatData, musicData] = await Promise.all([
+                    profRes.json(),
                     memoRes.json(),
                     chatRes.json(),
                     musicRes.json()
                 ]);
 
+                // อัปเดตข้อมูลแรงค์ล่าสุด
+                profData.forEach(row => {
+                    let role = row[0];
+                    if(profiles[role]) {
+                        profiles[role].name = row[1] || profiles[role].name;
+                        profiles[role].pic = row[2] || profiles[role].pic;
+                        profiles[role].mood = row[3] || profiles[role].mood;
+                        profiles[role].points = parseInt(row[4]) || 0;
+                    }
+                });
+                updateHeaderUI();
+
+                // 1. เรนเดอร์ไดอารี่
                 document.getElementById('memories-container').innerHTML = memoData.length ? memoData.map((row, index) => {
                     let imgUrl = row[1];
                     let likes = []; try { likes = row[6] ? JSON.parse(row[6]) : []; } catch(e){}
@@ -490,13 +608,14 @@
                                 ${commentList}
                             </div>
                             <div style="display:flex; gap:8px;">
-                                <input type="text" id="comment-input-${index}" placeholder="พิมพ์คอมเม้น..." style="width:100%; padding:8px 12px; border-radius:15px; border:1px solid var(--primary-light); font-size:13px; outline:none; font-family:'Mali', cursive;">
+                                <input type="text" id="comment-input-${index}" placeholder="พิมพ์คอมเม้น..." style="width:100%; padding:8px 12px; border-radius:15px; border:1px solid var(--primary-light); font-size:13px; outline:none; font-family:'Mali', cursive;" onkeypress="if(event.key === 'Enter') addComment('${imgUrl}', '${index}')">
                                 <button class="btn-main" style="width:auto; padding:8px 15px; font-size:13px;" onclick="addComment('${imgUrl}', '${index}')">ส่ง</button>
                             </div>
                         </div>
                     </div>`;
                 }).reverse().join('') : '<p style="text-align:center; color:#aaa; grid-column: 1 / -1;">ยังไม่มีไดอารี่เลย ลองเพิ่มดูสิครับ</p>';
 
+                // 2. เรนเดอร์แชท
                 let chatHTML = '';
                 chatData.forEach(row => {
                     let isMe = row[4] === currentUserRole;
@@ -512,9 +631,9 @@
                 });
                 const chatContainer = document.getElementById('chat-container');
                 chatContainer.innerHTML = chatHTML || '<p style="text-align:center; color:#aaa; margin-top:20px;">ยังไม่มีข้อความ เริ่มคุยกันเลย! 💕</p>';
-                
                 forceScrollChat();
 
+                // 3. เรนเดอร์เพลง
                 document.getElementById('music-container').innerHTML = musicData.length ? musicData.map(row => 
                     `<div class="music-card">
                         <div style="display:flex; flex-direction:column; gap:5px;">
