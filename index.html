@@ -44,11 +44,10 @@
         .sidebar .menu-btn:hover:not(.active) { background: #fafafa; }
 
         .header-profiles { display: flex; justify-content: center; align-items: center; gap: 10px; background: white; padding: 8px 15px; border-radius: 30px; box-shadow: 0 4px 15px rgba(255, 117, 140, 0.1); }
-        .user-status { display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; }
+        .user-status { display: flex; align-items: center; gap: 8px; transition: 0.2s; }
         .profile-img-container { position: relative; }
         
-        /* 🏆 กรอบโปรไฟล์สวยอลังการ */
-        .profile-img-container img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: #fff; padding: 2px; } /* ให้มีขอบขาวด้านในบางๆ */
+        .profile-img-container img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: #fff; padding: 2px; }
         .rank-Iron { border: 2.5px solid #8e959e !important; }
         .rank-Bronze { border: 2.5px solid #cd7f32 !important; box-shadow: 0 2px 8px rgba(205, 127, 50, 0.4); }
         .rank-Silver { border: 2.5px solid #c0c0c0 !important; box-shadow: 0 3px 10px rgba(192, 192, 192, 0.5); }
@@ -60,16 +59,18 @@
         .rank-Challenger { border: 4px solid #1e90ff !important; box-shadow: 0 0 20px #1e90ff, inset 0 0 10px #1e90ff; }
         .rank-Radiant { border: 4px solid #ffdf00 !important; box-shadow: 0 0 25px #ffdf00, 0 0 40px #ffae42; }
         
-        .mood-badge { position: absolute; bottom: -5px; right: -5px; background: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; border: 1px solid #ffe4e1; z-index: 5; }
-        .user-status span { font-weight: 700; font-size: 12px; color: var(--text); max-width: 60px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .user-status span { font-weight: 700; font-size: 12px; color: var(--text); max-width: 65px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .heart-divider { color: var(--primary-light); font-size: 18px; animation: heartbeat 1.5s infinite; }
 
-        .mood-btn { background: #fff0f5; border: 2px solid #ffe4e1; font-size: 24px; padding: 10px; border-radius: 15px; cursor: pointer; transition: 0.2s; touch-action: manipulation; }
-        
+        /* ป้ายแท็กสเตตัสด่วน (Quick Status) แทนที่อีโมจิเดิม */
+        .status-badge { background: #fff0f5; color: var(--primary); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 12px; margin-top: 3px; border: 1px solid #ffe4e1; max-width: 85px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: 0.2s; display: inline-block; }
+        .status-badge.editable { cursor: pointer; box-shadow: 0 2px 5px rgba(255, 117, 140, 0.2); border-color: var(--primary-light); }
+        .status-badge.editable:hover { background: var(--primary-light); color: white; transform: scale(1.05); }
+
         .tab-section { display: none; }
         .tab-section.active { display: block; animation: fadeIn 0.4s; }
         .add-form-card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 30px; border: 2px dashed #ffe4e1; text-align: center; }
-        .add-form-card input, .add-form-card select { width: 100%; padding: 12px; border: 2px solid var(--primary-light); border-radius: 15px; font-family: 'Mali', cursive; margin-bottom: 15px; font-size: 14px; outline: none; }
+        .add-form-card input { width: 100%; padding: 12px; border: 2px solid var(--primary-light); border-radius: 15px; font-family: 'Mali', cursive; margin-bottom: 15px; font-size: 14px; outline: none; }
         
         /* ปุ่มบวกลอย (FAB) แบบ Google Drive */
         .fab-btn { position: fixed; bottom: 30px; right: 25px; width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; border-radius: 50%; font-size: 32px; font-weight: bold; border: none; box-shadow: 0 10px 25px rgba(255, 117, 140, 0.4); cursor: pointer; z-index: 100; transition: transform 0.2s; display: flex; align-items: center; justify-content: center; }
@@ -78,28 +79,10 @@
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(3px); animation: fadeIn 0.2s; }
         .modal-content { background: white; padding: 25px; border-radius: 25px; text-align: center; width: 90%; max-width: 350px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
 
-        /* -------------------------------------
-           📸 ดีไซน์โพลารอยด์ของแท้ (2 คอลัมน์) 
-           ------------------------------------- */
+        /* ดีไซน์โพลารอยด์ของแท้ (2 คอลัมน์) */
         .polaroid-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 5px; }
-        .polaroid { 
-            background: #fff; 
-            padding: 10px 10px 45px 10px; /* พื้นที่สีขาวด้านล่างเยอะพิเศษ */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08); 
-            text-align: center; 
-            position: relative; 
-            display: flex; 
-            flex-direction: column;
-            border-radius: 2px; /* ขอบคมเหมือนกระดาษจริง */
-        }
-        .polaroid img.main-img { 
-            width: 100%; 
-            aspect-ratio: 1 / 1; /* บังคับรูปให้เป็นจัตุรัสแบบโพลารอยด์แท้ */
-            object-fit: cover; 
-            border-radius: 0; /* ขอบรูปด้านในเหลี่ยมจัด */
-            border: 1px solid #eaeaea; 
-            background: #fafafa;
-        }
+        .polaroid { background: #fff; padding: 10px 10px 45px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08); text-align: center; position: relative; display: flex; flex-direction: column; border-radius: 2px; }
+        .polaroid img.main-img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 0; border: 1px solid #eaeaea; background: #fafafa; }
         .polaroid p { margin: 12px 0 0 0; font-weight: 600; font-size: 12px; color: var(--text); line-height: 1.4; word-wrap: break-word; }
         
         .uploader-badge { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.95); padding: 3px 6px 3px 3px; border-radius: 20px; display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-size: 9px; font-weight: 700; color: var(--primary); z-index: 5; }
@@ -130,7 +113,13 @@
         .music-card { background: white; padding: 15px 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-left: 5px solid var(--primary); position: relative; }
         .profile-preview { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-light); margin-bottom: 15px; }
 
-        @media (max-width: 480px) { .polaroid-grid { gap: 10px; padding: 0; } .polaroid { padding: 8px 8px 35px 8px; } }
+        @media (max-width: 480px) { 
+            .polaroid-grid { gap: 10px; padding: 0; } 
+            .polaroid { padding: 8px 8px 35px 8px; } 
+            .header-profiles { padding: 8px 10px; gap: 6px; } 
+            .user-status span { max-width: 50px; font-size: 11px; } 
+            .status-badge { max-width: 70px; font-size: 9px; }
+        }
     </style>
 </head>
 <body>
@@ -158,19 +147,15 @@
         </div>
     </div>
 
-    <div id="mood-selector-popup" class="modal-overlay">
+    <!-- ป๊อปอัปตั้งสเตตัสด่วน (Quick Status) แทนที่เลือกอิโมจิ -->
+    <div id="status-modal" class="modal-overlay">
         <div class="modal-content">
-            <h3 style="color:var(--primary); margin-top:0; margin-bottom:15px;">อารมณ์ตอนนี้ 💖</h3>
-            <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
-                <button class="mood-btn" onclick="quickUpdateMood('😊')">😊</button>
-                <button class="mood-btn" onclick="quickUpdateMood('🥰')">🥰</button>
-                <button class="mood-btn" onclick="quickUpdateMood('🥺')">🥺</button>
-                <button class="mood-btn" onclick="quickUpdateMood('😭')">😭</button>
-                <button class="mood-btn" onclick="quickUpdateMood('😡')">😡</button>
-                <button class="mood-btn" onclick="quickUpdateMood('😴')">😴</button>
-                <button class="mood-btn" onclick="quickUpdateMood('🤒')">🤒</button>
+            <h3 style="color:var(--primary); margin-top:0; margin-bottom:15px;">ตั้งสเตตัสด่วน 💬</h3>
+            <input type="text" id="quick-status-input" placeholder="ทำอะไรอยู่เอ่ย..." maxlength="25" style="width:100%; padding:12px; border-radius:12px; border:2px solid var(--primary-light); font-family:'Mali', cursive; font-size:14px; outline:none; text-align:center; margin-bottom:20px;">
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button class="btn-main" style="background:#eee; color:#888; box-shadow:none; padding:8px 15px; width:auto;" onclick="document.getElementById('status-modal').style.display='none'">ยกเลิก</button>
+                <button class="btn-main" style="width:auto; padding:8px 15px;" onclick="saveQuickStatus()">อัปเดตสถานะ</button>
             </div>
-            <button class="btn-main" style="margin-top:20px; background:#eee; color:#888; box-shadow:none;" onclick="document.getElementById('mood-selector-popup').style.display='none'">ปิด</button>
         </div>
     </div>
 
@@ -240,20 +225,11 @@
                 <h3 style="margin-top:0; color:var(--primary);">ตั้งค่าโปรไฟล์ของคุณ</h3>
                 <div class="profile-img-container" style="margin-bottom: 15px;">
                     <img id="preview-profile-pic" class="profile-preview" src="" alt="profile" referrerpolicy="no-referrer" style="margin-bottom: 0;">
-                    <div id="preview-mood" class="mood-badge" style="width:30px; height:30px; font-size:18px; bottom: 5px; right: 5px;">😊</div>
                 </div>
                 <label style="font-weight:600; width:100%; text-align:left; max-width:300px;">ชื่อที่แสดง:</label>
                 <input type="text" id="profile-name-input" placeholder="ใส่ชื่อของคุณ" style="max-width:300px;">
-                <label style="font-weight:600; width:100%; text-align:left; max-width:300px;">อารมณ์ตอนนี้:</label>
-                <select id="profile-mood-input" style="max-width:300px;" onchange="document.getElementById('preview-mood').innerText = this.value">
-                    <option value="😊">😊 อารมณ์ดี / มีความสุข</option>
-                    <option value="🥰">🥰 คลั่งรัก / คิดถึง</option>
-                    <option value="🥺">🥺 อ้อน / น้อยใจ</option>
-                    <option value="😭">😭 ร้องไห้ / เศร้า</option>
-                    <option value="😡">😡 โกรธ / งอนอยู่</option>
-                    <option value="😴">😴 ง่วง / เหนื่อย</option>
-                    <option value="🤒">🤒 ป่วย / ไม่สบาย</option>
-                </select>
+                <label style="font-weight:600; width:100%; text-align:left; max-width:300px; margin-top:5px;">สเตตัสด่วนจี๋:</label>
+                <input type="text" id="profile-status-setting" placeholder="เช่น กำลังปั้นกล้าม 💪" maxlength="25" style="max-width:300px;">
                 <label style="font-weight:600; width:100%; text-align:left; max-width:300px; margin-top:5px;">เปลี่ยนรูปภาพ:</label>
                 <input type="file" id="profile-file-input" accept="image/*" style="max-width:300px;">
                 <button id="btn-save-prof" class="btn-main" style="width:auto; margin-top:10px;" onclick="saveProfile()">บันทึกอัปเดต</button>
@@ -265,8 +241,8 @@
         const scriptUrl = 'https://script.google.com/macros/s/AKfycbzEYhM0r_B1RPLojZkJyFbOY-GZxsJgYsbcfEERUrsix8WHYH0WprpirFiYIpmIqE4WZQ/exec';
         let currentUserRole = '';
         let profiles = {
-            'boy': { name: 'เค้าเอง (ชาย)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png', mood: '😊', points: 0 },
-            'girl': { name: 'เค้าเอง (หญิง)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140047.png', mood: '🥰', points: 0 }
+            'boy': { name: 'เค้าเอง (ชาย)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png', statusText: 'ตั้งสเตตัส...', points: 0 },
+            'girl': { name: 'เค้าเอง (หญิง)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140047.png', statusText: 'ตั้งสเตตัส...', points: 0 }
         };
 
         function getRankInfo(pts) {
@@ -334,42 +310,55 @@
             document.getElementById('memo-text').value = '';
         }
 
-        function openMoodSelector() { document.getElementById('mood-selector-popup').style.display = 'flex'; }
+        // ระบบตั้งสเตตัสด่วนจี๋ (แทนที่อิโมจิอารมณ์)
+        function openStatusModal() { 
+            let cur = profiles[currentUserRole].statusText;
+            document.getElementById('quick-status-input').value = (cur !== 'ตั้งสเตตัส...') ? cur : '';
+            document.getElementById('status-modal').style.display = 'flex'; 
+        }
         
-        async function quickUpdateMood(newMood) {
-            document.getElementById('mood-selector-popup').style.display = 'none';
-            profiles[currentUserRole].mood = newMood;
+        async function saveQuickStatus() {
+            let val = document.getElementById('quick-status-input').value.trim();
+            if(!val) val = 'ตั้งสเตตัส...';
+            document.getElementById('status-modal').style.display = 'none';
+            
+            profiles[currentUserRole].statusText = val;
             updateHeaderUI(); updateProfileTabUI();
-            const payload = { type: "ProfileUpload", role: currentUserRole, uploaderName: profiles[currentUserRole].name, mood: newMood, fileData: null, fileName: null, mimeType: null };
+            
+            const payload = { type: "ProfileUpload", role: currentUserRole, uploaderName: profiles[currentUserRole].name, mood: val, fileData: null, fileName: null, mimeType: null };
             try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); } catch(e){}
         }
 
         function updateHeaderUI() {
             const boy = profiles['boy']; const girl = profiles['girl'];
             let bRank = getRankInfo(boy.points); let gRank = getRankInfo(girl.points);
-            let bMoodStyle = currentUserRole === 'boy' ? `cursor:pointer; box-shadow: 0 0 8px var(--primary); transform: scale(1.1);` : `box-shadow: 0 2px 5px rgba(0,0,0,0.15);`;
-            let gMoodStyle = currentUserRole === 'girl' ? `cursor:pointer; box-shadow: 0 0 8px var(--primary); transform: scale(1.1);` : `box-shadow: 0 2px 5px rgba(0,0,0,0.15);`;
-            let bMoodClick = currentUserRole === 'boy' ? `onclick="event.stopPropagation(); openMoodSelector()"` : '';
-            let gMoodClick = currentUserRole === 'girl' ? `onclick="event.stopPropagation(); openMoodSelector()"` : '';
+            
+            // เพิ่มเอฟเฟกต์ให้กดได้ถ้าเป็นสเตตัสของตัวเอง
+            let bStatusClass = currentUserRole === 'boy' ? `status-badge editable` : `status-badge`;
+            let gStatusClass = currentUserRole === 'girl' ? `status-badge editable` : `status-badge`;
+            let bStatusClick = currentUserRole === 'boy' ? `onclick="openStatusModal()"` : '';
+            let gStatusClick = currentUserRole === 'girl' ? `onclick="openStatusModal()"` : '';
             
             document.getElementById('header-profiles').innerHTML = `
-                <div class="user-status" onclick="switchTab('rank')">
+                <div class="user-status">
                     <div style="display:flex; flex-direction:column; align-items:flex-end;">
-                        <span>${boy.name}</span><span style="font-size:10px; color:#888;">${bRank.name} (${boy.points})</span>
+                        <span>${boy.name}</span>
+                        <span style="font-size:10px; color:#888;">${bRank.name} (${boy.points})</span>
+                        <div class="${bStatusClass}" ${bStatusClick}>${boy.statusText}</div>
                     </div>
                     <div class="profile-img-container">
                         <img src="${boy.pic}" class="${bRank.cls}" alt="boy" referrerpolicy="no-referrer">
-                        <div class="mood-badge" style="${bMoodStyle}" ${bMoodClick}>${boy.mood}</div>
                     </div>
                 </div>
                 <div class="heart-divider">💓</div>
-                <div class="user-status" onclick="switchTab('rank')">
+                <div class="user-status">
                     <div class="profile-img-container">
                         <img src="${girl.pic}" class="${gRank.cls}" alt="girl" referrerpolicy="no-referrer">
-                        <div class="mood-badge" style="${gMoodStyle}" ${gMoodClick}>${girl.mood}</div>
                     </div>
                     <div style="display:flex; flex-direction:column; align-items:flex-start;">
-                        <span>${girl.name}</span><span style="font-size:10px; color:#888;">${gRank.name} (${girl.points})</span>
+                        <span>${girl.name}</span>
+                        <span style="font-size:10px; color:#888;">${gRank.name} (${girl.points})</span>
+                        <div class="${gStatusClass}" ${gStatusClick}>${girl.statusText}</div>
                     </div>
                 </div>`;
             renderRankBoard();
@@ -400,23 +389,26 @@
         function updateProfileTabUI() {
             document.getElementById('profile-name-input').value = profiles[currentUserRole].name;
             document.getElementById('preview-profile-pic').src = profiles[currentUserRole].pic;
-            document.getElementById('profile-mood-input').value = profiles[currentUserRole].mood;
-            document.getElementById('preview-mood').innerText = profiles[currentUserRole].mood;
+            let curStatus = profiles[currentUserRole].statusText;
+            document.getElementById('profile-status-setting').value = (curStatus !== 'ตั้งสเตตัส...') ? curStatus : '';
         }
 
         async function saveProfile() {
             const newName = document.getElementById('profile-name-input').value;
-            const newMood = document.getElementById('profile-mood-input').value;
+            let newStatus = document.getElementById('profile-status-setting').value.trim();
+            if(!newStatus) newStatus = 'ตั้งสเตตัส...';
+            
             const fileInput = document.getElementById('profile-file-input');
             const btnSave = document.getElementById('btn-save-prof');
             if(!newName) return alert('อย่าลืมใส่ชื่อด้วยนะค๊าบ!');
+            
             btnSave.innerText = "กำลังบันทึก... ⏳"; btnSave.disabled = true;
             let base64Data = null; let file = null;
             if (fileInput.files.length > 0) { file = fileInput.files[0]; base64Data = await compressImage(file); }
-            const payload = { type: "ProfileUpload", role: currentUserRole, uploaderName: newName, mood: newMood, fileData: base64Data ? base64Data.split(',')[1] : null, fileName: file ? file.name : null, mimeType: file ? file.type : null };
+            const payload = { type: "ProfileUpload", role: currentUserRole, uploaderName: newName, mood: newStatus, fileData: base64Data ? base64Data.split(',')[1] : null, fileName: file ? file.name : null, mimeType: file ? file.type : null };
             try {
                 await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
-                profiles[currentUserRole].name = newName; profiles[currentUserRole].mood = newMood;
+                profiles[currentUserRole].name = newName; profiles[currentUserRole].statusText = newStatus;
                 updateHeaderUI(); updateProfileTabUI(); alert('อัปเดตโปรไฟล์เรียบร้อยแล้ว! 💖'); fileInput.value = ''; loadData(); 
             } catch(e) { alert('เกิดข้อผิดพลาดในการเชื่อมต่อครับ'); }
             btnSave.innerText = "บันทึกอัปเดต"; btnSave.disabled = false;
@@ -424,7 +416,7 @@
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.sidebar .menu-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('tab-' + tabName).classList.add('active');
             document.getElementById('btn-' + tabName).classList.add('active');
         }
@@ -489,7 +481,6 @@
             try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify({ type: "Delete", sheetName: sheetName, id: id, role: currentUserRole }) }); loadData(); } catch (error) {}
         }
         function downloadImage(url) {
-            // โหลดรูปภาพโดยเปิดแท็บใหม่ให้กดเซฟ (เนื่องจากติดข้อจำกัด Google Drive)
             window.open(url, '_blank');
         }
 
@@ -524,7 +515,7 @@
             let box = document.getElementById(`comment-box-${index}`); box.style.display = box.style.display === 'none' ? 'block' : 'none';
         }
 
-        // ระบบดึงข้อมูล (Super Light ⚡)
+        // ระบบดึงข้อมูลแบบเบาหวิวสุดๆ (เอาแชทและนัดหมายออก)
         async function loadData() {
             try {
                 const res = await fetch(scriptUrl);
@@ -540,7 +531,9 @@
                         let role = row[0];
                         if(profiles[role]) {
                             profiles[role].name = row[1] || profiles[role].name; profiles[role].pic = row[2] || profiles[role].pic;
-                            profiles[role].mood = row[3] || profiles[role].mood; profiles[role].points = parseInt(row[4]) || 0;
+                            // โหลดสเตตัสด่วนจี๋จากช่องที่เคยใช้อิโมจิ
+                            profiles[role].statusText = row[3] || 'ตั้งสเตตัส...'; 
+                            profiles[role].points = parseInt(row[4]) || 0;
                         }
                     });
                 }
@@ -553,6 +546,9 @@
                         let timestamp = row[0]; let imgUrl = row[1]; let caption = row[2] || ''; let uName = row[3] || ''; let uPic = row[4] || ''; let role = row[5] || '';
                         let likes = []; try { likes = row[6] ? JSON.parse(row[6]) : []; } catch(e){}
                         let comments = []; try { comments = row[7] ? JSON.parse(row[7]) : []; } catch(e){}
+
+                        // กรองข้อมูลเก่าทิ้งเฉพาะที่เอาไปซ่อนไว้
+                        if(row[8] === "hidden") return '';
 
                         let myReact = Array.isArray(likes) ? likes.find(l => l && l.role === currentUserRole) : null;
                         let currentButtonText = myReact ? `${myReact.reaction || '❤️'}` : '🤍';
