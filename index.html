@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Memories 💖</title>
+    <title>Memories💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #ff758c; --primary-light: #ffb6c1; --bg: #fff0f5; --text: #5a4a42; --card-bg: #ffffff; }
@@ -113,6 +113,10 @@
         .music-card { background: white; padding: 15px 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-left: 5px solid var(--primary); position: relative; }
         .profile-preview { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-light); margin-bottom: 15px; }
 
+        .music-thumb { width: 55px; height: 55px; border-radius: 8px; object-fit: cover; margin-right: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); flex-shrink: 0; border: 1px solid #eee; }
+        .music-info { display: flex; flex-direction: column; gap: 4px; text-align: left; flex: 1; overflow: hidden; padding-right: 10px; }
+        .music-info strong { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; font-size: 13px; line-height: 1.4; color: var(--text); }
+
         @media (max-width: 480px) { 
             .polaroid-grid { gap: 10px; padding: 0; } 
             .polaroid { padding: 8px 8px 35px 8px; } 
@@ -147,7 +151,6 @@
         </div>
     </div>
 
-    <!-- ป๊อปอัปตั้งสเตตัสด่วน (Quick Status) แทนที่เลือกอิโมจิ -->
     <div id="status-modal" class="modal-overlay">
         <div class="modal-content">
             <h3 style="color:var(--primary); margin-top:0; margin-bottom:15px;">ตั้งสเตตัสด่วน 💬</h3>
@@ -159,7 +162,6 @@
         </div>
     </div>
 
-    <!-- ป๊อปอัปเพิ่มความทรงจำ (+) -->
     <div id="add-memory-modal" class="modal-overlay">
         <div class="modal-content">
             <h3 style="margin-top:0; color:var(--primary);">เพิ่มโพลารอยด์ใหม่ 📸</h3>
@@ -173,13 +175,11 @@
     </div>
 
     <div id="main-content">
-        <!-- แถบด้านบน: เมนูแฮมเบอร์เกอร์ + โปรไฟล์ -->
         <div class="top-navbar">
             <div class="hamburger-btn" onclick="openSidebar()">☰</div>
             <div class="header-profiles" id="header-profiles"></div>
         </div>
         
-        <!-- แถบเมนูด้านซ้าย (Sidebar) -->
         <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
         <div id="sidebar" class="sidebar">
             <div class="sidebar-logo">Memories 💖</div>
@@ -197,7 +197,7 @@
         <div id="tab-music" class="tab-section">
             <div class="add-form-card">
                 <h3 style="margin-top:0; color:var(--primary);">บันทึกเพลงใหม่</h3>
-                <input type="text" id="music-link" placeholder="วางลิ้งก์ YouTube ที่นี่">
+                <input type="text" id="music-link" placeholder="วางลิ้งก์ YouTube ที่นี่" oninput="autoFetchMusicTitle()">
                 <input type="text" id="music-text" placeholder="ชื่อเพลง หรือ ความรู้สึก">
                 <button class="btn-main" style="width:auto;" onclick="uploadText('Music', 'music-link', 'music-text')">บันทึกเพลง</button>
             </div>
@@ -244,6 +244,27 @@
             'boy': { name: 'เค้าเอง (ชาย)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png', statusText: 'ตั้งสเตตัส...', points: 0 },
             'girl': { name: 'เค้าเอง (หญิง)', pic: 'https://cdn-icons-png.flaticon.com/512/4140/4140047.png', statusText: 'ตั้งสเตตัส...', points: 0 }
         };
+
+        function getYouTubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        async function autoFetchMusicTitle() {
+            let linkInput = document.getElementById('music-link').value;
+            let textInput = document.getElementById('music-text');
+            if (linkInput && (linkInput.includes('youtu.be') || linkInput.includes('youtube.com')) && !textInput.value) {
+                textInput.value = 'กำลังดึงชื่อเพลง... ⏳';
+                try {
+                    let res = await fetch('https://noembed.com/embed?dataType=json&url=' + linkInput);
+                    let data = await res.json();
+                    textInput.value = data.title ? data.title : '';
+                } catch (e) {
+                    textInput.value = '';
+                }
+            }
+        }
 
         function getRankInfo(pts) {
             if(pts < 10) return { name: 'Iron', cls: 'rank-Iron', max: 10 };
@@ -618,16 +639,18 @@
                 if(Array.isArray(musicData)) {
                     musicHTML = musicData.filter(row => row && row[0]).map((row, index) => {
                         let timestamp = row[0]; let link = row[1]; let title = row[2] || ''; let uName = row[3] || ''; let role = row[5];
+                        let vidId = getYouTubeId(link);
+                        let thumbUrl = vidId ? `https://img.youtube.com/vi/${vidId}/mqdefault.jpg` : 'https://cdn-icons-png.flaticon.com/512/2618/2618116.png';
                         
                         return `
-                        <div class="music-card">
+                        <div class="music-card" style="justify-content: flex-start; padding: 12px 15px;">
                             ${generateDotsMenu('Music', timestamp, role, 'drop-music-' + index, '')}
-                            <div style="display:flex; flex-direction:column; gap:4px; text-align:left; padding-right:20px;">
-                                <span><strong>${title}</strong></span><span style="font-size:11px; color:#888;">เพิ่มโดย: ${uName}</span>
+                            <img src="${thumbUrl}" class="music-thumb" alt="thumbnail" referrerpolicy="no-referrer">
+                            <div class="music-info">
+                                <strong>${title}</strong>
+                                <span style="font-size:11px; color:#888;">เพิ่มโดย: ${uName}</span>
                             </div>
-                            <div style="display:flex; align-items:center;">
-                                <a href="${link}" target="_blank" class="btn-main" style="width:auto; padding:8px 15px; text-decoration:none; font-size:14px;">ฟังเพลง 🎵</a>
-                            </div>
+                            <a href="${link}" target="_blank" class="btn-main" style="width:auto; padding:8px 12px; text-decoration:none; font-size:12px; margin-left: auto;">ฟัง 🎵</a>
                         </div>`;
                     }).reverse().join('');
                 }
