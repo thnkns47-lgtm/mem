@@ -3,15 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Memories💖</title>
+    <title>AODFAH</title>
     <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff758c; --primary-light: #ffb6c1; --bg: #fff0f5; --text: #5a4a42; --card-bg: #ffffff; }
+        :root { 
+            --primary: #ff758c; 
+            --primary-light: #ffb6c1; 
+            /* เปลี่ยนโทนสีพื้นหลังหลักขององค์ประกอบต่าง ๆ ให้เข้ากับธีมชมพู-ม่วง */
+            --bg: #fbebff; 
+            --text: #5a4a42; 
+            --card-bg: #ffffff; 
+        }
         * { box-sizing: border-box; }
-        body { font-family: 'Mali', cursive; background-color: var(--bg); color: var(--text); margin: 0; padding: 10px 15px 80px 15px; display: flex; flex-direction: column; align-items: center; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); overflow-x: hidden; }
         
-        #login-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: var(--bg); background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); z-index: 1000; overflow: hidden; margin: 0; padding: 20px; }
-        .login-box { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(255, 117, 140, 0.2); text-align: center; width: 100%; max-width: 320px; backdrop-filter: blur(5px); }
+        body { 
+            font-family: 'Mali', cursive; 
+            /* ไล่สี Gradient ชมพูพาสเทลผสมม่วงพาสเทลแบบเฉียง */
+            background: linear-gradient(135deg, #fff0f5 0%, #f3e5f5 50%, #ffe4e1 100%);
+            background-attachment: fixed; /* ตรึงพื้นหลังไว้เพื่อให้สีกลืนกันเวลาเลื่อนจอ */
+            color: var(--text); 
+            margin: 0; 
+            padding: 10px 15px 80px 15px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, #fff0f5 0%, #f3e5f5 50%, #ffe4e1 100%);
+            overflow-x: hidden; 
+        }
+        
+        #login-screen { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            background: linear-gradient(135deg, #fff0f5 0%, #f3e5f5 50%, #ffe4e1 100%);
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png'), linear-gradient(135deg, #fff0f5 0%, #f3e5f5 50%, #ffe4e1 100%);
+            z-index: 1000; 
+            overflow: hidden; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .login-box { background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(216, 27, 96, 0.15); text-align: center; width: 100%; max-width: 320px; backdrop-filter: blur(5px); }
         .login-box h2 { color: var(--primary); font-size: 24px; margin-top: 0; margin-bottom: 20px; }
         
         input#passcode { padding: 15px; border: 2px solid var(--primary-light); border-radius: 15px; font-family: 'Mali', cursive; margin-bottom: 20px; width: 100%; outline: none; font-size: 20px; text-align: center; letter-spacing: 5px; background: #fffafb; color: var(--primary); font-weight: 700; transition: 0.3s; touch-action: manipulation; }
@@ -41,7 +78,7 @@
         .sidebar .menu-btn.active { background: #fff0f5; color: var(--primary); border-left: 4px solid var(--primary); }
         .sidebar .menu-btn:hover:not(.active) { background: #fafafa; }
 
-        .header-profiles { display: flex; justify-content: center; align-items: center; gap: 10px; background: white; padding: 8px 15px; border-radius: 30px; box-shadow: 0 4px 15px rgba(255, 117, 140, 0.1); }
+        .header-profiles { display: flex; justify(content: center); align-items: center; gap: 10px; background: white; padding: 8px 15px; border-radius: 30px; box-shadow: 0 4px 15px rgba(216, 27, 96, 0.1); }
         .user-status { display: flex; align-items: center; gap: 8px; transition: 0.2s; }
         .profile-img-container { position: relative; }
         .profile-img-container img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: #fff; padding: 2px; }
@@ -65,7 +102,7 @@
         .fab-menu { display: none; flex-direction: column; gap: 10px; margin-bottom: 15px; align-items: flex-end; }
         .fab-menu.show { display: flex; animation: fadeIn 0.2s; }
         .fab-menu-btn { background: white; border: 2px solid var(--primary-light); color: var(--primary); padding: 10px 15px; border-radius: 20px; font-family: 'Mali', cursive; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 8px; transition: 0.2s; }
-        .fab-menu-btn:hover { background: var(--bg); transform: scale(1.05); }
+        .fab-menu-btn:hover { background: #fff0f5; transform: scale(1.05); }
         .fab-btn { width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; border-radius: 50%; font-size: 32px; font-weight: bold; border: none; box-shadow: 0 10px 25px rgba(255, 117, 140, 0.4); cursor: pointer; transition: transform 0.2s; display: flex; align-items: center; justify-content: center; }
         .fab-btn:hover { transform: scale(1.1); box-shadow: 0 12px 30px rgba(255, 117, 140, 0.6); }
 
@@ -107,7 +144,7 @@
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 2px dashed #ffe4e1; }
         .day-name { font-size: 12px; font-weight: 700; color: var(--primary-light); margin-bottom: 10px; }
         .day-cell { padding: 10px 0; font-size: 14px; border-radius: 50%; cursor: pointer; position: relative; transition: 0.2s; }
-        .day-cell:hover { background: var(--bg); }
+        .day-cell:hover { background: #fff0f5; }
         .day-cell.has-memory { font-weight: bold; color: var(--primary); background: #fff0f5; border: 1px solid var(--primary-light); }
         .day-cell.empty { pointer-events: none; }
         .memory-dot { position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; background: var(--primary); border-radius: 50%; }
@@ -170,7 +207,7 @@
     </div>
 
     <div id="calendar-view-modal" class="modal-overlay">
-        <div class="modal-content" style="background:var(--bg); border: 2px dashed var(--primary-light);">
+        <div class="modal-content" style="background:#fff0f5; border: 2px dashed var(--primary-light);">
             <h3 style="margin-top:0; color:var(--primary);" id="cal-modal-title">ความทรงจำวันที่...</h3>
             <div id="cal-modal-body" style="display:flex; flex-direction:column; gap:10px; max-height:50vh; overflow-y:auto; padding-bottom:10px;"></div>
             <button class="btn-main" style="margin-top:15px;" onclick="document.getElementById('calendar-view-modal').style.display='none'">ปิดหน้าต่าง</button>
@@ -403,7 +440,6 @@
             let base64Data = null; let file = null;
             if (fileInput.files.length > 0) { file = fileInput.files[0]; base64Data = await compressImage(file); }
             
-            // Optimistic Update: อัปเดตทันทีโดยไม่ต้องรอโหลดซ้ำ
             profiles[currentUserRole].name = newName; profiles[currentUserRole].statusText = newStatus;
             updateHeaderUI(); updateProfileTabUI();
             
@@ -496,7 +532,6 @@
         }
 
         async function sendLike(imgUrl) {
-            // Optimistic Update: เปลี่ยนไอคอนหัวใจทันทีไม่ต้องรอเซิร์ฟเวอร์ตอบกลับ
             let targetMemo = globalMemoriesList.find(m => m.imgUrl === imgUrl);
             if(targetMemo) {
                 let likes = []; try { likes = targetMemo.likes ? JSON.parse(targetMemo.likes) : []; } catch(e){}
@@ -504,7 +539,7 @@
                 if(index > -1) likes.splice(index, 1);
                 else likes.push({role: currentUserRole, pic: profiles[currentUserRole].pic, reaction: '❤️'});
                 targetMemo.likes = JSON.stringify(likes);
-                renderMemoriesUI(); // วาด UI ใหม่ทันที
+                renderMemoriesUI(); 
             }
             const payload = { type: "Like", imgUrl: imgUrl, role: currentUserRole, uploaderPic: profiles[currentUserRole].pic, reaction: '❤️' };
             try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); } catch (error) {}
