@@ -222,7 +222,7 @@
         
         <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
         <div id="sidebar" class="sidebar">
-            <div class="sidebar-logo">Memories 💖</div>
+            <div class="sidebar-logo">AODFAH</div>
             <button class="menu-btn active" id="btn-memories" onclick="switchTab('memories'); closeSidebar()">📸 แกลลอรี่โพลารอยด์</button>
             <button class="menu-btn" id="btn-calendar" onclick="switchTab('calendar'); closeSidebar()">📅 ปฏิทินความทรงจำ</button>
             <button class="menu-btn" id="btn-music" onclick="switchTab('music'); closeSidebar()">🎵 เพลย์ลิสต์เพลง</button>
@@ -614,7 +614,7 @@
 
                     let myReact = Array.isArray(likes) ? likes.find(l => l && l.role === currentUserRole) : null;
                     let likeBtnClass = myReact ? 'like-btn liked' : 'like-btn';
-                    let likeBtnText = myReact ? '❤️ ถูกใจแล้ว' : '🤍 ถูกใจ';
+                    let likeBtnText = myReact ? '❤️' : '🤍';
 
                     let likePics = '';
                     if(Array.isArray(likes) && likes.length > 0) {
