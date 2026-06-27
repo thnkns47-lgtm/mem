@@ -44,10 +44,8 @@
         .header-profiles { display: flex; justify-content: center; align-items: center; gap: 10px; background: white; padding: 8px 15px; border-radius: 30px; box-shadow: 0 4px 15px rgba(255, 117, 140, 0.1); }
         .user-status { display: flex; align-items: center; gap: 8px; transition: 0.2s; }
         .profile-img-container { position: relative; }
-        
         .profile-img-container img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: #fff; padding: 2px; }
         
-        /* สีกรอบรูปตามเพศ */
         .profile-boy { border: 3px solid #d81b60 !important; box-shadow: 0 0 10px rgba(216, 27, 96, 0.3); }
         .profile-girl { border: 3px solid #9b59b6 !important; box-shadow: 0 0 10px rgba(155, 89, 182, 0.3); }
         
@@ -113,19 +111,6 @@
         .day-cell.has-memory { font-weight: bold; color: var(--primary); background: #fff0f5; border: 1px solid var(--primary-light); }
         .day-cell.empty { pointer-events: none; }
         .memory-dot { position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; background: var(--primary); border-radius: 50%; }
-
-        @media print {
-            body { background: white !important; padding: 0 !important; margin: 0 !important; background-image: none !important; }
-            #login-screen, .top-navbar, .sidebar, .sidebar-overlay, .fab-container, .modal-overlay, #tab-music, #tab-profile, #tab-calendar, .reaction-bar, .opt-menu, .uploader-badge { display: none !important; }
-            #main-content { display: block !important; max-width: 100% !important; margin: 0 !important; }
-            #tab-memories { display: block !important; }
-            
-            .polaroid-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 10px !important; padding: 0 !important; }
-            .polaroid { box-shadow: none !important; border: 1px solid #ccc !important; padding: 5px 5px 25px 5px !important; page-break-inside: avoid !important; margin-bottom: 10px; }
-            .polaroid p { font-size: 10px !important; margin-top: 5px !important; }
-            
-            * { color: black !important; }
-        }
 
         @media (max-width: 480px) { 
             .polaroid-grid { gap: 10px; padding: 0; } 
@@ -212,7 +197,6 @@
             <div class="fab-container">
                 <div class="fab-menu" id="fab-action-menu">
                     <div class="fab-menu-btn" onclick="openAddMemoryModal(); toggleFab()">📸 เพิ่มรูป</div>
-                    <div class="fab-menu-btn" onclick="printPolaroids(); toggleFab()">🖨️ ปริ้นโพลารอยด์</div>
                 </div>
                 <button class="fab-btn" onclick="toggleFab()">+</button>
             </div>
@@ -285,9 +269,7 @@
                     let res = await fetch('https://noembed.com/embed?dataType=json&url=' + linkInput);
                     let data = await res.json();
                     textInput.value = data.title ? data.title : '';
-                } catch (e) {
-                    textInput.value = '';
-                }
+                } catch (e) { textInput.value = ''; }
             }
         }
 
@@ -372,7 +354,6 @@
 
         function updateHeaderUI() {
             const boy = profiles['boy']; const girl = profiles['girl'];
-            
             let bStatusClass = currentUserRole === 'boy' ? `status-badge editable` : `status-badge`;
             let gStatusClass = currentUserRole === 'girl' ? `status-badge editable` : `status-badge`;
             let bStatusClick = currentUserRole === 'boy' ? `onclick="openStatusModal()"` : '';
@@ -402,11 +383,9 @@
 
         function updateProfileTabUI() {
             document.getElementById('profile-name-input').value = profiles[currentUserRole].name;
-            
             let previewImg = document.getElementById('preview-profile-pic');
             previewImg.src = profiles[currentUserRole].pic;
             previewImg.className = currentUserRole === 'boy' ? 'profile-preview profile-boy' : 'profile-preview profile-girl';
-            
             let curStatus = profiles[currentUserRole].statusText;
             document.getElementById('profile-status-setting').value = (curStatus !== 'ตั้งสเตตัส...') ? curStatus : '';
         }
@@ -423,16 +402,23 @@
             btnSave.innerText = "กำลังบันทึก... ⏳"; btnSave.disabled = true;
             let base64Data = null; let file = null;
             if (fileInput.files.length > 0) { file = fileInput.files[0]; base64Data = await compressImage(file); }
+            
+            // Optimistic Update: อัปเดตทันทีโดยไม่ต้องรอโหลดซ้ำ
+            profiles[currentUserRole].name = newName; profiles[currentUserRole].statusText = newStatus;
+            updateHeaderUI(); updateProfileTabUI();
+            
             const payload = { type: "ProfileUpload", role: currentUserRole, uploaderName: newName, mood: newStatus, fileData: base64Data ? base64Data.split(',')[1] : null, fileName: file ? file.name : null, mimeType: file ? file.type : null };
             try {
-                await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
-                profiles[currentUserRole].name = newName; profiles[currentUserRole].statusText = newStatus;
-                updateHeaderUI(); updateProfileTabUI(); alert('อัปเดตโปรไฟล์เรียบร้อยแล้ว! 💖'); fileInput.value = ''; loadData(); 
-            } catch(e) { alert('เกิดข้อผิดพลาดในการเชื่อมต่อครับ'); }
+                let res = await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
+                let resData = await res.json();
+                if(resData.link) profiles[currentUserRole].pic = resData.link;
+                updateHeaderUI(); updateProfileTabUI();
+                alert('อัปเดตโปรไฟล์เรียบร้อยแล้ว! 💖'); fileInput.value = '';
+            } catch(e) { alert('เกิดข้อผิดพลาดในการเชื่อมต่อครับ แต่ข้อมูลอาจบันทึกแล้ว'); }
             btnSave.innerText = "บันทึกอัปเดต"; btnSave.disabled = false;
         }
 
-        function compressImage(file, maxWidth = 1200) {
+        function compressImage(file, maxWidth = 1000) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -446,7 +432,7 @@
                         if (width > maxWidth) { height = Math.round((height *= maxWidth / width)); width = maxWidth; }
                         canvas.width = width; canvas.height = height;
                         ctx.drawImage(img, 0, 0, width, height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.7)); 
+                        resolve(canvas.toDataURL('image/jpeg', 0.65)); 
                     };
                 };
                 reader.onerror = error => reject(error);
@@ -468,7 +454,8 @@
             try {
                 const response = await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) });
                 if ((await response.json()).status === "success") { 
-                    updateHeaderUI(); loadData(); closeAddMemoryModal(); 
+                    closeAddMemoryModal(); 
+                    await loadData(); 
                 }
             } catch (error) { alert('❌ เชื่อมต่อไม่ได้: ' + error); }
             btnUpload.innerText = "บันทึก"; btnUpload.disabled = false;
@@ -478,13 +465,20 @@
             const link = document.getElementById(linkId).value; const text = document.getElementById(textId).value;
             if (!link) return alert('อย่าลืมวางลิ้งก์เพลงนะค๊าบ!');
             const payload = { type: type, link: link, text: text, uploaderName: profiles[currentUserRole].name, uploaderPic: profiles[currentUserRole].pic, role: currentUserRole };
-            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); document.getElementById(linkId).value = ''; document.getElementById(textId).value = ''; updateHeaderUI(); loadData(); } catch (error) { alert('❌ เชื่อมต่อไม่ได้: ' + error); }
+            try { 
+                document.getElementById(linkId).value = ''; document.getElementById(textId).value = ''; 
+                await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); 
+                await loadData(); 
+            } catch (error) { alert('❌ เชื่อมต่อไม่ได้: ' + error); }
         }
 
         function toggleDropdown(id) { document.getElementById(id).classList.toggle('show'); }
         async function deleteItem(sheetName, id) {
             if(!confirm('แน่ใจนะว่าจะลบข้อมูลนี้ถาวร? 🥺')) return;
-            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify({ type: "Delete", sheetName: sheetName, id: id, role: currentUserRole }) }); loadData(); } catch (error) {}
+            try { 
+                await fetch(scriptUrl, { method: 'POST', body: JSON.stringify({ type: "Delete", sheetName: sheetName, id: id, role: currentUserRole }) }); 
+                await loadData(); 
+            } catch (error) {}
         }
         function downloadImage(url) { window.open(url, '_blank'); }
 
@@ -502,23 +496,32 @@
         }
 
         async function sendLike(imgUrl) {
+            // Optimistic Update: เปลี่ยนไอคอนหัวใจทันทีไม่ต้องรอเซิร์ฟเวอร์ตอบกลับ
+            let targetMemo = globalMemoriesList.find(m => m.imgUrl === imgUrl);
+            if(targetMemo) {
+                let likes = []; try { likes = targetMemo.likes ? JSON.parse(targetMemo.likes) : []; } catch(e){}
+                let index = likes.findIndex(l => l.role === currentUserRole);
+                if(index > -1) likes.splice(index, 1);
+                else likes.push({role: currentUserRole, pic: profiles[currentUserRole].pic, reaction: '❤️'});
+                targetMemo.likes = JSON.stringify(likes);
+                renderMemoriesUI(); // วาด UI ใหม่ทันที
+            }
             const payload = { type: "Like", imgUrl: imgUrl, role: currentUserRole, uploaderPic: profiles[currentUserRole].pic, reaction: '❤️' };
-            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); loadData(); } catch (error) { console.error(error); }
+            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); } catch (error) {}
         }
 
         async function addComment(imgUrl, index) {
             let input = document.getElementById(`comment-input-${index}`); let text = input.value.trim(); if(!text) return;
             input.value = 'กำลังส่ง...'; input.disabled = true;
             const payload = { type: "Comment", imgUrl: imgUrl, text: text, uploaderName: profiles[currentUserRole].name, uploaderPic: profiles[currentUserRole].pic };
-            try { await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); loadData(); } catch (error) { alert('เกิดข้อผิดพลาด'); }
+            try { 
+                await fetch(scriptUrl, { method: 'POST', body: JSON.stringify(payload) }); 
+                await loadData(); 
+            } catch (error) { alert('เกิดข้อผิดพลาด'); }
         }
 
         function toggleCommentBox(index) {
             let box = document.getElementById(`comment-box-${index}`); box.style.display = box.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function printPolaroids() {
-            window.print();
         }
 
         function changeMonth(dir) {
@@ -540,7 +543,6 @@
             
             let firstDay = new Date(currentCalYear, currentCalMonth, 1).getDay();
             let daysInMonth = new Date(currentCalYear, currentCalMonth + 1, 0).getDate();
-            
             for(let i=0; i<firstDay; i++) { grid.innerHTML += `<div class="day-cell empty"></div>`; }
             
             for(let d=1; d<=daysInMonth; d++) {
@@ -558,16 +560,73 @@
         function openDayMemories(dateStr) {
             let dayMemories = globalMemoriesList.filter(m => new Date(m.rawDate).toLocaleDateString('th-TH') === dateStr);
             document.getElementById('cal-modal-title').innerText = `ความทรงจำวันที่ ${dateStr}`;
-            
             let html = dayMemories.map(m => `
                 <div style="background:white; padding:10px; border-radius:10px; border:1px solid #eee; text-align:center;">
                     <img src="${m.imgUrl}" style="width:100%; border-radius:5px; margin-bottom:10px;" referrerpolicy="no-referrer">
                     <p style="margin:0; font-size:12px; font-weight:bold;">${m.caption}</p>
                 </div>
             `).join('');
-            
             document.getElementById('cal-modal-body').innerHTML = html;
             document.getElementById('calendar-view-modal').style.display = 'flex';
+        }
+
+        function renderMemoriesUI() {
+            let memoHTML = '';
+            if(globalMemoriesList.length > 0) {
+                memoHTML = globalMemoriesList.map((m, index) => {
+                    let likes = []; try { likes = m.likes ? JSON.parse(m.likes) : []; } catch(e){}
+                    let comments = []; try { comments = m.comments ? JSON.parse(m.comments) : []; } catch(e){}
+
+                    let myReact = Array.isArray(likes) ? likes.find(l => l && l.role === currentUserRole) : null;
+                    let likeBtnClass = myReact ? 'like-btn liked' : 'like-btn';
+                    let likeBtnText = myReact ? '❤️ ถูกใจแล้ว' : '🤍 ถูกใจ';
+
+                    let likePics = '';
+                    if(Array.isArray(likes) && likes.length > 0) {
+                        likePics = `<div style="display:flex; align-items:center;">` + likes.map((l, i) => {
+                            if(!l) return '';
+                            let zIndex = 10 - i; let margin = i > 0 ? '-10px' : '0';
+                            return `
+                            <div class="like-pic-frame" style="z-index: ${zIndex}; margin-left: ${margin};">
+                                <img src="${l.pic}" referrerpolicy="no-referrer">
+                            </div>`;
+                        }).join('') + `</div>`;
+                    }
+
+                    let commentList = Array.isArray(comments) && comments.length > 0 ? comments.map(c => c ? `
+                        <div style="text-align: left; font-size: 13px; margin-bottom: 8px; display:flex; gap:8px; align-items:flex-start;">
+                            <img src="${c.pic}" style="width:20px; height:20px; border-radius:50%; object-fit:cover;" referrerpolicy="no-referrer">
+                            <div style="background: #fff0f5; padding: 6px 10px; border-radius: 12px; max-width:85%;">
+                                <strong style="color:var(--primary); font-size:12px;">${c.name}</strong><br><span style="color:var(--text);">${c.text}</span>
+                            </div>
+                        </div>` : '').join('') : '<p style="text-align:center; color:#aaa; font-size:12px;">ยังไม่มีคอมเมนต์จ้า</p>';
+
+                    return `
+                    <div class="polaroid">
+                        ${generateDotsMenu('Memories', m.rawDate, m.role, 'drop-memo-' + index, m.imgUrl)}
+                        <div class="uploader-badge"><img src="${m.uPic}" referrerpolicy="no-referrer"><span>${m.uName}</span></div>
+                        <img class="main-img" src="${m.imgUrl}" alt="Memory" referrerpolicy="no-referrer">
+                        <p>${m.caption}</p>
+                        
+                        <div class="reaction-bar">
+                            <div class="${likeBtnClass}" onclick="sendLike('${m.imgUrl}')">${likeBtnText}</div>
+                            ${likePics}
+                            <div style="cursor:pointer; color:#888; font-weight:600; font-size:12px; padding: 5px; margin-left: auto;" onclick="toggleCommentBox('${index}')">
+                                💬 ${comments.length || 0}
+                            </div>
+                        </div>
+                        
+                        <div id="comment-box-${index}" style="display:none; margin-top:15px; border-top: 1px dashed #eee; padding-top:15px;">
+                            <div style="max-height: 150px; overflow-y: auto; margin-bottom:12px;">${commentList}</div>
+                            <div style="display:flex; gap:8px;">
+                                <input type="text" id="comment-input-${index}" placeholder="พิมพ์คอมเม้น..." style="width:100%; padding:8px 12px; border-radius:15px; border:1px solid var(--primary-light); font-size:11px; outline:none; font-family:'Mali', cursive;" onkeypress="if(event.key === 'Enter') addComment('${m.imgUrl}', '${index}')">
+                                <button class="btn-main" style="width:auto; padding:8px 10px; font-size:11px;" onclick="addComment('${m.imgUrl}', '${index}')">ส่ง</button>
+                            </div>
+                        </div>
+                    </div>`;
+                }).reverse().join('');
+            }
+            document.getElementById('memories-container').innerHTML = memoHTML || '<p style="text-align:center; color:#aaa; grid-column: 1 / -1; margin-top:20px;">กดปุ่ม + ด้านล่างเพื่อเพิ่มรูปภาพแรกเลยครับ 💖</p>';
         }
 
         async function loadData() {
@@ -601,63 +660,7 @@
                 }
                 
                 renderCalendar();
-
-                let memoHTML = '';
-                if(globalMemoriesList.length > 0) {
-                    memoHTML = globalMemoriesList.map((m, index) => {
-                        let likes = []; try { likes = m.likes ? JSON.parse(m.likes) : []; } catch(e){}
-                        let comments = []; try { comments = m.comments ? JSON.parse(m.comments) : []; } catch(e){}
-
-                        let myReact = Array.isArray(likes) ? likes.find(l => l && l.role === currentUserRole) : null;
-                        let likeBtnClass = myReact ? 'like-btn liked' : 'like-btn';
-                        let likeBtnText = myReact ? '❤️ ถูกใจแล้ว' : '🤍 ถูกใจ';
-
-                        let likePics = '';
-                        if(Array.isArray(likes) && likes.length > 0) {
-                            likePics = `<div style="display:flex; align-items:center;">` + likes.map((l, i) => {
-                                if(!l) return '';
-                                let zIndex = 10 - i; let margin = i > 0 ? '-10px' : '0';
-                                return `
-                                <div class="like-pic-frame" style="z-index: ${zIndex}; margin-left: ${margin};">
-                                    <img src="${l.pic}" referrerpolicy="no-referrer">
-                                </div>`;
-                            }).join('') + `</div>`;
-                        }
-
-                        let commentList = Array.isArray(comments) && comments.length > 0 ? comments.map(c => c ? `
-                            <div style="text-align: left; font-size: 13px; margin-bottom: 8px; display:flex; gap:8px; align-items:flex-start;">
-                                <img src="${c.pic}" style="width:20px; height:20px; border-radius:50%; object-fit:cover;" referrerpolicy="no-referrer">
-                                <div style="background: #fff0f5; padding: 6px 10px; border-radius: 12px; max-width:85%;">
-                                    <strong style="color:var(--primary); font-size:12px;">${c.name}</strong><br><span style="color:var(--text);">${c.text}</span>
-                                </div>
-                            </div>` : '').join('') : '<p style="text-align:center; color:#aaa; font-size:12px;">ยังไม่มีคอมเมนต์จ้า</p>';
-
-                        return `
-                        <div class="polaroid">
-                            ${generateDotsMenu('Memories', m.rawDate, m.role, 'drop-memo-' + index, m.imgUrl)}
-                            <div class="uploader-badge"><img src="${m.uPic}" referrerpolicy="no-referrer"><span>${m.uName}</span></div>
-                            <img class="main-img" src="${m.imgUrl}" alt="Memory" referrerpolicy="no-referrer">
-                            <p>${m.caption}</p>
-                            
-                            <div class="reaction-bar">
-                                <div class="${likeBtnClass}" onclick="sendLike('${m.imgUrl}')">${likeBtnText}</div>
-                                ${likePics}
-                                <div style="cursor:pointer; color:#888; font-weight:600; font-size:12px; padding: 5px; margin-left: auto;" onclick="toggleCommentBox('${index}')">
-                                    💬 ${comments.length || 0}
-                                </div>
-                            </div>
-                            
-                            <div id="comment-box-${index}" style="display:none; margin-top:15px; border-top: 1px dashed #eee; padding-top:15px;">
-                                <div style="max-height: 150px; overflow-y: auto; margin-bottom:12px;">${commentList}</div>
-                                <div style="display:flex; gap:8px;">
-                                    <input type="text" id="comment-input-${index}" placeholder="พิมพ์คอมเม้น..." style="width:100%; padding:8px 12px; border-radius:15px; border:1px solid var(--primary-light); font-size:11px; outline:none; font-family:'Mali', cursive;" onkeypress="if(event.key === 'Enter') addComment('${m.imgUrl}', '${index}')">
-                                    <button class="btn-main" style="width:auto; padding:8px 10px; font-size:11px;" onclick="addComment('${m.imgUrl}', '${index}')">ส่ง</button>
-                                </div>
-                            </div>
-                        </div>`;
-                    }).reverse().join('');
-                }
-                document.getElementById('memories-container').innerHTML = memoHTML || '<p style="text-align:center; color:#aaa; grid-column: 1 / -1; margin-top:20px;">กดปุ่ม + ด้านล่างเพื่อเพิ่มรูปภาพแรกเลยครับ 💖</p>';
+                renderMemoriesUI();
 
                 let musicHTML = '';
                 if(Array.isArray(musicData)) {
